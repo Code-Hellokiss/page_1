@@ -1,197 +1,417 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sản phẩm - The Cocoon Vietnam</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css" />
     <style>
+        /* Phần CSS giữ nguyên như bạn đã cung cấp */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fefefe;
+            color: #333;
+            margin: 0;
+        }
+        /* ===== HEADER ===== */
+        .main-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo img {
+            height: 48px;
+            width: auto;
+        }
+        .menu-toggle {
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: #2b6a4d;
+            cursor: pointer;
+            display: none;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .nav ul li a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #2b6a4d;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .nav ul li a:hover,
+        .nav ul li a.active {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav {
+                width: 100%;
+            }
+            .nav ul {
+                flex-direction: column;
+                background-color: #ffffff;
+                border: 1px solid #ccc;
+                padding: 12px;
+                display: none;
+                margin-top: 10px;
+                width: 100%;
+            }
+            .nav ul.show {
+                display: flex;
+            }
+            .nav ul li {
+                width: 100%;
+            }
+            .nav ul li a {
+                display: block;
+                width: 100%;
+            }
+        }
+        /* ===== PRODUCT GRID ===== */
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #2b6a4d;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+            padding: 15px;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease;
+        }
+        .product-card:hover,
+        .product-card:focus {
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+            outline: none;
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            object-fit: contain;
+            height: 180px;
+        }
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin: 0 0 6px 0;
+            color: #2b6a4d;
+        }
+        .product-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 0 0 8px 0;
+        }
+        .product-card strong {
+            color: #166534;
+        }
+        /* ===== MODAL ===== */
+        .modal.show {
+            display: flex;
+        }
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 1100;
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.5);
             justify-content: center;
             align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
             padding: 20px;
-            border-radius: 10px;
-            width: 90%;
+        }
+        .modal-content {
+            background: #fff;
             max-width: 800px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgb(0 0 0 / 0.3);
+            display: flex;
+            flex-direction: column;
             position: relative;
         }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
         .modal-layout {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            padding: 20px;
         }
-
-        .modal-left {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .modal-left img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .modal-info p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
+        .modal-left,
         .modal-right {
-            flex: 2;
-            min-width: 300px;
+            flex: 1 1 300px;
+            padding: 10px;
         }
-
+        .modal-left img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+        .modal-info {
+            font-weight: 600;
+            color: #2b6a4d;
+            margin-top: 12px;
+        }
         .modal-right h3 {
-            margin-top: 10px;
-            color: #007b7f;
+            margin-top: 0;
+            color: #166534;
         }
-
+        .modal-right p {
+            margin-top: 0.5em;
+            line-height: 1.5;
+            color: #444;
+        }
         .modal-right ul {
             padding-left: 20px;
-            list-style: disc;
+            margin-top: 8px;
+            color: #555;
         }
-
-        .modal-results {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+        .modal-right ul li {
+            margin-bottom: 5px;
         }
-
-        .modal-results img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 5px;
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            border: none;
+            background: none;
+            color: #555;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        .close:hover,
+        .close:focus {
+            color: #2b6a4d;
+            outline: none;
+        }
+        footer {
+            text-align:center;
+            margin: 60px 0 20px;
+            color:#888;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .modal-layout {
+                flex-direction: column;
+            }
+            .modal-left, .modal-right {
+                padding: 5px 0;
+            }
+            .product-card img {
+                height: 140px;
+            }
         }
     </style>
 </head>
 <body>
-<header class="header">
-    <div class="logo">the <strong>cocoon</strong></div>
-    <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="product.html" class="active">Product</a>
-        <a href="blogs.html">Blogs</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-</header>
 
-<section class="product-list">
-    <h1>Sản phẩm nổi bật</h1>
-    <div class="product-grid">
-        <div class="product-card" onclick="openModal(
-            'Catch-Cholesterol',
-            [
-                'Sản phẩm giúp loại bỏ cholesterol, sỏi mật, mỡ và phân trong hệ tuần hoàn.',
-                'Detox làm sạch hệ tuần hoàn chỉ bằng một ngày.',
-                'Thành phần tự nhiên tinh khiết.',
-                'Có thể nhìn thấy chất thải/sỏi bằng mắt sau 1 ngày.',
-                'Giảm lượng mỡ nội tạng/chất béo dưới da.',
-                'Ổn định huyết áp, chỉ số đường.',
-                'Tỷ lệ khách hàng mua lại cao.'
-            ],
-            'images/cocoon.png',
-            'A(200ml x 4ea), B(200ml x 2ea)',
-            '275,000 KRW',
-            ['images/result1.jpg', 'images/result2.jpg', 'images/result3.jpg']
-        )">
-            <img src="images/cocoon.png" alt="Catch-Cholesterol">
-            <h3>Catch-Cholesterol</h3>
-            <p>Sản phẩm detox loại bỏ cholesterol, mỡ thừa...</p>
-        </div>
-    </div>
-</section>
+<!-- HEADER -->
+<div id="header-placeholder"></div>
 
-<!-- Modal chi tiết sản phẩm -->
-<div id="productModal" class="modal">
+<!-- MAIN -->
+<main>
+    <h1>Sản phẩm của The Cocoon</h1>
+    <section class="product-grid" aria-label="Danh sách sản phẩm">
+        <!-- Sản phẩm sẽ thêm bằng JavaScript -->
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    © 2025 The Cocoon Vietnam. All rights reserved.
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="productModal" role="dialog" aria-modal="true">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-
+        <button class="close" aria-label="Đóng">&times;</button>
         <div class="modal-layout">
             <div class="modal-left">
-                <img id="modalImage" src="" alt="Ảnh sản phẩm">
-                <div class="modal-info">
-                    <p><strong>Tên sản phẩm:</strong> <span id="modalName"></span></p>
-                    <p><strong>Dung lượng:</strong> <span id="modalVolume"></span></p>
-                    <p><strong>Giá tiêu dùng:</strong> <span id="modalPrice"></span></p>
-                </div>
+                <img id="modalImage" src="" alt="Hình ảnh sản phẩm" />
+                <p class="modal-info" id="modalPrice"></p>
             </div>
-
             <div class="modal-right">
-                <h3>Đặc trưng</h3>
-                <ul id="modalFeatures"></ul>
-                <h3>Kết quả</h3>
-                <div class="modal-results" id="modalResults"></div>
+                <h3 id="modalTitle"></h3>
+                <p id="modalDesc"></p>
+                <h4>Thành phần:</h4>
+                <ul id="modalIngredients"></ul>
             </div>
         </div>
     </div>
 </div>
 
-<footer class="footer">
-    <p>&copy; 2025 The Cocoon Vietnam. Bảo lưu mọi quyền.</p>
-</footer>
-
+<!-- SCRIPT -->
 <script>
-    function openModal(name, features, imageUrl, volume, price, resultImages) {
-        document.getElementById('modalName').innerText = name;
-        document.getElementById('modalVolume').innerText = volume;
-        document.getElementById('modalPrice').innerText = price;
-        document.getElementById('modalImage').src = imageUrl;
+    // Nhúng header.html vào trang
+    fetch('header.html')
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
 
-        const featureList = document.getElementById('modalFeatures');
-        featureList.innerHTML = "";
-        features.forEach(f => {
-            const li = document.createElement("li");
-            li.textContent = f;
-            featureList.appendChild(li);
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navList = document.querySelector('.nav ul');
+            menuToggle.addEventListener('click', () => {
+                navList.classList.toggle('show');
+            });
         });
 
-        const resultContainer = document.getElementById('modalResults');
-        resultContainer.innerHTML = "";
-        resultImages.forEach(src => {
-            const img = document.createElement("img");
-            img.src = src;
-            resultContainer.appendChild(img);
-        });
-
-        document.getElementById('productModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-        document.getElementById('productModal').style.display = 'none';
-    }
-
-    window.onclick = function(event) {
-        const modal = document.getElementById('productModal');
-        if (event.target === modal) {
-            modal.style.display = "none";
+    // Dữ liệu sản phẩm
+    const products = [
+        {
+            id: 1,
+            title: "Tinh dầu bưởi Cocoon",
+            price: "169.000 đ",
+            img: "images/img_1.png",
+            description: "Giúp giảm rụng tóc, kích thích mọc tóc và phục hồi tóc hư tổn.",
+            ingredients: ["Tinh dầu bưởi", "Dầu dừa", "Dầu hạnh nhân", "Vitamin E"]
+        },
+        {
+            id: 2,
+            title: "Tinh dầu bưởi Cocoon chai thủy tinh",
+            price: "195.000 đ",
+            img: "images/img_2.png",
+            description: "Chai thủy tinh giúp bảo quản tinh dầu tốt hơn, thích hợp làm quà tặng.",
+            ingredients: ["Tinh dầu bưởi", "Dầu jojoba", "Vitamin E"]
+        },
+        {
+            id: 3,
+            title: "Bộ dầu gội đầu Cocoon",
+            price: "299.000 đ",
+            img: "images/img_3.png",
+            description: "Bộ dầu gội, dầu xả giúp tóc suôn mượt, chắc khỏe.",
+            ingredients: ["Dầu gội thảo mộc", "Dầu xả dưỡng ẩm", "Tinh dầu bưởi"]
+        },
+        {
+            id: 4,
+            title: "Dầu xả Cocoon",
+            price: "139.000 đ",
+            img: "images/img_4.png",
+            description: "Dưỡng tóc mềm mượt, giảm chẻ ngọn.",
+            ingredients: ["Dầu xả", "Vitamin B5", "Dầu dừa"]
         }
+    ];
+
+    const productGrid = document.querySelector('.product-grid');
+    const modal = document.getElementById('productModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalIngredients = document.getElementById('modalIngredients');
+    const modalPrice = document.getElementById('modalPrice');
+    const closeModalBtn = modal.querySelector('.close');
+
+    // Tạo thẻ sản phẩm
+    function createProductCard(product) {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+
+        card.innerHTML = `
+            <img src="${product.img}" alt="Hình ảnh ${product.title}" />
+            <h3>${product.title}</h3>
+            <p><strong>${product.price}</strong></p>
+            <p>${product.description}</p>
+        `;
+
+        card.addEventListener('click', () => openModal(product));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(product);
+            }
+        });
+
+        return card;
     }
+
+    // Mở modal
+    function openModal(product) {
+        modalImage.src = product.img;
+        modalImage.alt = `Hình ảnh ${product.title}`;
+        modalTitle.textContent = product.title;
+        modalDesc.textContent = product.description;
+        modalPrice.textContent = `Giá: ${product.price}`;
+        modalIngredients.innerHTML = '';
+        product.ingredients.forEach(ing => {
+            const li = document.createElement('li');
+            li.textContent = ing;
+            modalIngredients.appendChild(li);
+        });
+        modal.classList.add('show');
+        closeModalBtn.focus();
+    }
+
+    // Đóng modal
+    function closeModal() {
+        modal.classList.remove('show');
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+
+    // Đóng modal khi nhấn Esc
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    // Đóng modal khi click ra ngoài nội dung
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Thêm sản phẩm vào grid
+    products.forEach(product => {
+        const card = createProductCard(product);
+        productGrid.appendChild(card);
+    });
 </script>
+
 </body>
 </html>

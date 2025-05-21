@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Cocoon Vietnam</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        /* ===== Reset & Base ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -17,9 +15,7 @@
             transition: opacity 0.3s ease;
         }
         body.fade-in { opacity: 1; }
-        body.fade-out { opacity: 0; transition: opacity 0.3s ease; }
 
-        /* ===== Header ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -31,7 +27,7 @@
             top: 0;
             z-index: 1000;
         }
-        .logo { font-size: 1.5rem; color: #2f855a; text-transform: uppercase; }
+        .logo { font-size: 1.5rem; color: #2f855a; font-weight: bold; text-transform: uppercase; }
         .nav { display: flex; gap: 20px; flex-wrap: wrap; }
         .nav a {
             text-decoration: none;
@@ -39,6 +35,7 @@
             font-weight: 500;
         }
         .nav a:hover, .nav a.active { color: #276749; }
+
         .btn {
             background-color: #48bb78;
             color: white;
@@ -47,10 +44,10 @@
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.2s ease;
         }
         .btn:hover { background-color: #38a169; }
 
-        /* ===== Hero Section ===== */
         .hero {
             display: flex;
             flex-wrap: wrap;
@@ -61,41 +58,95 @@
             text-align: center;
         }
         .hero-text { max-width: 500px; }
-        .hero-text h1 { font-size: 2rem; color: #2f855a; margin-bottom: 12px; }
-        .hero-text p { font-size: 1.1rem; margin-bottom: 20px; }
-        .hero-img img { width: 300px; border-radius: 12px; }
+        .hero-text h1 { font-size: 2.5rem; color: #2f855a; margin-bottom: 12px; }
+        .hero-text p { font-size: 1.2rem; margin-bottom: 20px; }
+        .hero-img img { width: 320px; border-radius: 12px; }
 
-        /* ===== Sections ===== */
         section {
             padding: 60px 32px;
             background-color: white;
             text-align: center;
         }
         section h2 { font-size: 1.8rem; color: #2f855a; margin-bottom: 20px; }
-        section p, section blockquote { max-width: 700px; margin: auto; font-size: 1.1rem; color: #444; }
+        section p, section blockquote {
+            max-width: 700px;
+            margin: auto;
+            font-size: 1.1rem;
+            color: #444;
+        }
 
-        /* ===== Product Grid ===== */
         .product-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            margin-top: 20px;
         }
         .product-card {
             background-color: #f9f9f9;
             border-radius: 10px;
             padding: 15px;
-            width: 280px;
+            width: 260px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             cursor: pointer;
             transition: transform 0.2s ease;
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .product-card:hover { transform: translateY(-5px); }
-        .product-card img { width: 100%; border-radius: 8px; }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
         .product-card h3 { margin: 10px 0 5px; color: #2f855a; }
 
-        /* ===== Modal ===== */
+        /* Blog styling */
+        .blog-list {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .blog-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            width: 280px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        .blog-card h3 {
+            color: #2f855a;
+            margin-bottom: 10px;
+        }
+        .blog-card p {
+            flex-grow: 1;
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .see-more-btn {
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -106,6 +157,9 @@
             justify-content: center;
             align-items: center;
         }
+        .modal.show {
+            display: flex;
+        }
         .modal-content {
             background-color: #fff;
             border-radius: 10px;
@@ -113,34 +167,33 @@
             max-width: 800px;
             width: 90%;
             position: relative;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .close {
             position: absolute;
             top: 10px;
             right: 15px;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
+            color: #333;
+            transition: color 0.2s ease;
+            background: none;
+            border: none;
+        }
+        .close:hover {
+            color: #48bb78;
         }
         .modal-layout { display: flex; flex-wrap: wrap; gap: 20px; }
+        .modal-left, .modal-right {
+            flex: 1 1 300px;
+        }
         .modal-left img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
-        .modal-info p { margin: 5px 0; font-size: 14px; }
+        .modal-info p { margin: 5px 0; font-size: 14px; color: #555; }
         .modal-right h3 { color: #007b7f; margin-top: 10px; }
-        .modal-right ul { padding-left: 20px; text-align: left; }
-        .results {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-        }
-        .results img {
-            max-height: 100px;
-            object-fit: contain;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .results img:hover { transform: scale(1.1); }
+        .modal-right ul { padding-left: 20px; text-align: left; color: #444; }
 
-        /* ===== Footer ===== */
         .footer {
             text-align: center;
             padding: 20px;
@@ -149,23 +202,25 @@
             font-size: 0.9rem;
         }
 
-        /* ===== Responsive ===== */
         @media (max-width: 768px) {
             .hero { flex-direction: column; }
             .modal-content { width: 95%; }
+            .modal-layout { flex-direction: column; }
+            .product-grid, .blog-list {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 <header class="header">
-    <div class="logo">the <strong>cocoon</strong></div>
+    <div class="logo">The <strong>Cocoon</strong></div>
     <nav class="nav">
-        <a href="#home">Home</a>
-        <a href="about.html">About</a>
-        <a href="product.html">Product</a>
-        <a href="blogs.html">Blogs</a>
-        <a href="contact.html">Contact</a>
-        <button class="btn">Đăng ký</button>
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#product">Product</a>
+        <a href="#blogs">Blogs</a>
+        <a href="#contact">Contact</a>
     </nav>
 </header>
 
@@ -173,10 +228,10 @@
     <div class="hero-text">
         <h1>Sản phẩm chăm sóc tóc từ thiên nhiên</h1>
         <p>Chăm sóc tóc bằng nguyên liệu tự nhiên an toàn và lành tính.</p>
-        <button class="btn">Chi tiết sản phẩm</button>
+        <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Chi tiết sản phẩm</button>
     </div>
     <div class="hero-img">
-        <img src="images/cocoon.png" alt="Sản phẩm thiên nhiên">
+        <img src="images/img.png" alt="Sản phẩm thiên nhiên" />
     </div>
 </section>
 
@@ -188,147 +243,229 @@
     <p>Viện được thành lập từ 1981, chuyên sản phẩm bổ sung vi sinh, thực phẩm lên men, v.v.</p>
 </section>
 
-<section class="products" id="products">
-    <h2>Sản Phẩm Nổi Bật</h2>
-    <div class="product-grid">
-        <div class="product-card" onclick="openModal(
-            'Dầu gội bưởi',
-            ['Giúp tóc chắc khỏe và bóng mượt.', 'Chiết xuất từ vỏ bưởi tự nhiên.', 'Không chứa silicone.'],
-            'images/cocoon.png',
-            '300ml',
-            '150,000 VNĐ',
-            'Tóc giảm gãy rụng rõ rệt sau 2 tuần.'
-        )">
-            <img src="images/cocoon.png" alt="Dầu gội bưởi" />
-            <h3>Dầu gội bưởi</h3>
-            <p>Giúp tóc chắc khỏe và bóng mượt.</p>
-            <button class="btn">Xem chi tiết</button>
-        </div>
-
-        <div class="product-card" onclick="openModal(
-            'Serum nghệ Hưng Yên',
-            ['Phục hồi da mụn, sáng da.', 'Chiết xuất nghệ Hưng Yên.', 'Không gây kích ứng.'],
-            'images/cocoon.png',
-            '50ml',
-            '220,000 VNĐ',
-            'Da sáng mịn, mờ thâm sau 4 tuần.'
-        )">
-            <img src="images/cocoon.png" alt="Serum nghệ Hưng Yên" />
-            <h3>Serum nghệ Hưng Yên</h3>
-            <p>Phục hồi da mụn, sáng da.</p>
-            <button class="btn">Xem chi tiết</button>
-        </div>
-
-        <div class="product-card" onclick="openModal(
-            'Tẩy da chết cà phê',
-            ['Loại bỏ tế bào chết.', 'Chiết xuất cà phê nguyên chất.', 'Mang lại làn da mịn màng.'],
-            'images/cocoon.png',
-            '150g',
-            '180,000 VNĐ',
-            'Da sáng rõ, mềm mịn hơn sau 1 tuần.'
-        )">
-            <img src="images/cocoon.png" alt="Tẩy da chết cà phê" />
-            <h3>Tẩy da chết cà phê</h3>
-            <p>Loại bỏ tế bào chết hiệu quả.</p>
-            <button class="btn">Xem chi tiết</button>
-        </div>
-
-        <div class="product-card" onclick="openModal(
-            'Nước hoa hồng bí đao',
-            ['Làm dịu da, se khít lỗ chân lông.', 'Chiết xuất bí đao.', 'Dành cho da dầu mụn.'],
-            'images/cocoon.png',
-            '150ml',
-            '175,000 VNĐ',
-            'Da mịn màng và ít mụn sau 2 tuần.'
-        )">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf9YFiKKMc8E_Tu6ukH_yPgwIzLFpJQNfZFQ&s" alt="Nước hoa hồng bí đao" />
-            <h3>Nước hoa hồng bí đao</h3>
-            <p>Giúp se khít lỗ chân lông.</p>
-            <button class="btn">Xem chi tiết</button>
-        </div>
-    </div>
-
-    <!-- Nút chuyển đến trang Product -->
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="product.html" class="btn">Xem thêm sản phẩm</a>
+<section class="products" id="products" aria-label="Danh sách sản phẩm nổi bật">
+    <h2>Sản phẩm nổi bật</h2>
+    <div class="product-grid" id="productGrid"></div>
+    <div style="text-align:center; margin-top: 30px;">
+        <a href="product.html" class="btn" aria-label="Xem thêm sản phẩm">Xem thêm sản phẩm</a>
     </div>
 </section>
 
-<section class="blogs" id="blogs">
-    <h2>Dịch vụ & Chương trình</h2>
-    <div class="blog-item">
-        <h3>Chương trình Detox</h3>
-        <p>Giúp cơ thể thanh lọc và phục hồi thông qua công nghệ vi sinh.</p>
-    </div>
-    <div class="blog-item">
-        <h3>Công nghệ vi sinh vật</h3>
-        <p>Ứng dụng vi sinh vật trong chăm sóc sức khỏe và làn da.</p>
+<section class="blogs" id="blogs" aria-label="Danh sách bài viết blog">
+    <h2>Bài viết mới nhất</h2>
+    <div class="blog-list" id="blogList"></div>
+    <div style="text-align:center; margin-top: 30px;">
+        <a href="blogs.html" class="btn" aria-label="Xem thêm bài viết">Xem thêm bài viết</a>
     </div>
 </section>
 
-<section class="feedback" id="contact">
-    <h2>Phản hồi từ khách hàng</h2>
-    <blockquote>
-        "Sản phẩm thiên nhiên an toàn, tóc mình mượt hẳn ra sau vài tuần dùng!"
-        <cite>- Lan Anh, Hà Nội</cite>
-    </blockquote>
-</section>
+<footer class="footer" id="contact">
+    © 2025 The Cocoon Vietnam. All rights reserved.
+</footer>
 
-<div id="productModal" class="modal">
+
+<div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <button class="close" aria-label="Đóng cửa sổ">&times;</button>
         <div class="modal-layout">
             <div class="modal-left">
-                <img id="modalImage" src="" alt="Ảnh sản phẩm">
+                <img src="" alt="" id="modalImage" />
                 <div class="modal-info">
-                    <p><strong>Tên sản phẩm:</strong> <span id="modalName"></span></p>
-                    <p><strong>Dung lượng:</strong> <span id="modalVolume"></span></p>
-                    <p><strong>Giá tiêu dùng:</strong> <span id="modalPrice"></span></p>
+                    <p><strong>Thương hiệu:</strong> <span id="modalBrand"></span></p>
+                    <p><strong>Xuất xứ:</strong> <span id="modalOrigin"></span></p>
+                    <p><strong>Quy cách:</strong> <span id="modalSpecification"></span></p>
                 </div>
             </div>
             <div class="modal-right">
-                <h3>Đặc trưng</h3>
-                <ul id="modalFeatures"></ul>
-                <h3>thành phần chính</h3>
-                <p id="modalResult"></p>
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+                <h4>Thành phần:</h4>
+                <ul id="modalIngredients"></ul>
+                <h4>Công dụng:</h4>
+                <ul id="modalUses"></ul>
+                <h4>Hướng dẫn sử dụng:</h4>
+                <p id="modalInstructions"></p>
             </div>
         </div>
     </div>
 </div>
 
-<footer class="footer">
-    <p>&copy; 2025 The Cocoon Vietnam. Bảo lưu mọi quyền.</p>
-</footer>
-
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('fade-in');
+    // Dữ liệu sản phẩm mẫu
+    const products = [
+        {
+            id: 1,
+            name: "Catch-Cholesterol",
+            brand: "The Cocoon",
+            origin: "Hàn Quốc",
+            specification: "150ml",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBS4Y9KmabO4SxiTm91nVA5mPMW5o3ZJc1APyt3phvLX1ums8ztHr0lbhNJTIJ3dD1i4o&usqp=CAU",
+            description: "Sản phẩm giúp giảm cholesterol, chăm sóc tóc và da đầu hiệu quả.",
+            ingredients: ["Chiết xuất từ thiên nhiên", "Tinh dầu bạc hà", "Vitamin E"],
+            uses: ["Giảm cholesterol", "Dưỡng tóc", "Bảo vệ da đầu"],
+            instructions: "Dùng 2 lần mỗi ngày, thoa đều lên tóc và da đầu."
+        },
+        {
+            id: 2,
+            name: "Green Tea Hair Care",
+            brand: "The Cocoon",
+            origin: "Việt Nam",
+            specification: "200ml",
+            image: "https://m.media-amazon.com/images/I/51Z0dEF0ZJL._AC_UF1000,1000_QL80_.jpg",
+            description: "Dưỡng tóc mềm mượt từ trà xanh tự nhiên.",
+            ingredients: ["Chiết xuất trà xanh", "Dầu argan", "Aloe Vera"],
+            uses: ["Dưỡng ẩm", "Chống gãy rụng", "Tạo độ bóng cho tóc"],
+            instructions: "Thoa lên tóc ướt, massage nhẹ rồi xả sạch."
+        },
+        {
+            id: 3,
+            name: "Natural Shine Serum",
+            brand: "The Cocoon",
+            origin: "Hàn Quốc",
+            specification: "50ml",
+            image: "data:image/jpeg;base64,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",
+            description: "Serum tạo độ bóng tự nhiên và bảo vệ tóc khỏi tác hại môi trường.",
+            ingredients: ["Dầu jojoba", "Vitamin B5", "Chiết xuất hoa cúc"],
+            uses: ["Tạo độ bóng", "Chống nắng", "Phục hồi tóc hư tổn"],
+            instructions: "Lấy vài giọt serum thoa lên tóc sau khi sấy."
+        }
+    ];
+
+    // Dữ liệu blog mẫu
+    const blogs = [
+        {
+            id: 1,
+            title: "Lợi ích của sản phẩm thiên nhiên cho tóc",
+            excerpt: "Tìm hiểu vì sao các sản phẩm thiên nhiên ngày càng được ưa chuộng trong việc chăm sóc tóc.",
+            content: "Sản phẩm thiên nhiên giúp giảm nguy cơ kích ứng, nuôi dưỡng tóc khỏe mạnh từ bên trong...",
+            date: "2025-05-01"
+        },
+        {
+            id: 2,
+            title: "Cách chọn dầu gội phù hợp cho từng loại tóc",
+            excerpt: "Mỗi loại tóc cần loại dầu gội phù hợp để phát huy tối đa công dụng.",
+            content: "Đối với tóc khô, nên chọn sản phẩm có dưỡng ẩm cao, tóc dầu nên chọn loại làm sạch sâu...",
+            date: "2025-04-15"
+        },
+        {
+            id: 3,
+            title: "Thành phần tự nhiên nào tốt cho tóc hư tổn?",
+            excerpt: "Những thành phần tự nhiên giúp phục hồi tóc hư tổn hiệu quả.",
+            content: "Chiết xuất nha đam, dầu argan và protein lúa mạch là những thành phần rất phổ biến...",
+            date: "2025-04-05"
+        }
+    ];
+
+    // Hiển thị danh sách sản phẩm
+    const productGrid = document.getElementById('productGrid');
+    products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        card.innerHTML = `
+            <img src="${p.image}" alt="Hình ảnh sản phẩm ${p.name}" />
+            <h3>${p.name}</h3>
+            <p>${p.description.substring(0, 60)}...</p>
+        `;
+        card.addEventListener('click', () => openModal(p));
+        card.addEventListener('keypress', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(p);
+            }
+        });
+        productGrid.appendChild(card);
     });
 
-    function openModal(name, features, imageUrl, volume, price, result) {
-        document.getElementById('modalName').innerText = name;
-        document.getElementById('modalVolume').innerText = volume;
-        document.getElementById('modalPrice').innerText = price;
-        document.getElementById('modalImage').src = imageUrl;
-        const featureList = document.getElementById('modalFeatures');
-        featureList.innerHTML = "";
-        features.forEach(f => {
-            const li = document.createElement('li');
-            li.textContent = f;
-            featureList.appendChild(li);
+    // Hiển thị danh sách blog
+    const blogList = document.getElementById('blogList');
+    blogs.forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'blog-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        card.innerHTML = `
+            <h3>${b.title}</h3>
+            <p>${b.excerpt}</p>
+            <small>Ngày đăng: ${b.date}</small>
+        `;
+        card.addEventListener('click', () => alert(b.content));
+        card.addEventListener('keypress', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                alert(b.content);
+            }
         });
-        document.getElementById('modalResult').innerText = result || "";
-        document.getElementById('productModal').style.display = 'flex';
+        blogList.appendChild(card);
+    });
+
+    // Modal
+    const modal = document.getElementById('productModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalBrand = document.getElementById('modalBrand');
+    const modalOrigin = document.getElementById('modalOrigin');
+    const modalSpecification = document.getElementById('modalSpecification');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalIngredients = document.getElementById('modalIngredients');
+    const modalUses = document.getElementById('modalUses');
+    const modalInstructions = document.getElementById('modalInstructions');
+    const closeModalBtn = modal.querySelector('.close');
+
+    function openModal(product) {
+        modalImage.src = product.image;
+        modalImage.alt = `Hình ảnh sản phẩm ${product.name}`;
+        modalBrand.textContent = product.brand;
+        modalOrigin.textContent = product.origin;
+        modalSpecification.textContent = product.specification;
+        modalTitle.textContent = product.name;
+        modalDescription.textContent = product.description;
+
+        modalIngredients.innerHTML = '';
+        product.ingredients.forEach(i => {
+            const li = document.createElement('li');
+            li.textContent = i;
+            modalIngredients.appendChild(li);
+        });
+
+        modalUses.innerHTML = '';
+        product.uses.forEach(u => {
+            const li = document.createElement('li');
+            li.textContent = u;
+            modalUses.appendChild(li);
+        });
+
+        modalInstructions.textContent = product.instructions;
+
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        // Focus quản lý
+        closeModalBtn.focus();
     }
+
     function closeModal() {
-        document.getElementById('productModal').style.display = 'none';
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
     }
-    window.onclick = function(e) {
-        const modal = document.getElementById('productModal');
-        if (e.target === modal) {
-            modal.style.display = "none";
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
         }
-    }
+    });
+
+    // Fade in body sau khi tải
+    window.addEventListener('load', () => {
+        document.body.classList.add('fade-in');
+    });
 </script>
 </body>
 </html>
