@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cocoon Vietnam</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== Reset & Base ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fefefe;
+            color: #333;
+            line-height: 1.6;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        body.fade-in { opacity: 1; }
+        body.fade-out { opacity: 0; transition: opacity 0.3s ease; }
+
+        /* ===== Header ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            background-color: #e0f2e9;
+            border-bottom: 2px solid #c0e4d6;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; color: #2f855a; text-transform: uppercase; }
+        .nav { display: flex; gap: 20px; flex-wrap: wrap; }
+        .nav a {
+            text-decoration: none;
+            color: #2f855a;
+            font-weight: 500;
+        }
+        .nav a:hover, .nav a.active { color: #276749; }
+        .btn {
+            background-color: #48bb78;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn:hover { background-color: #38a169; }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 32px;
+            background-color: #f0fff4;
+            text-align: center;
+        }
+        .hero-text { max-width: 500px; }
+        .hero-text h1 { font-size: 2rem; color: #2f855a; margin-bottom: 12px; }
+        .hero-text p { font-size: 1.1rem; margin-bottom: 20px; }
+        .hero-img img { width: 300px; border-radius: 12px; }
+
+        /* ===== Sections ===== */
+        section {
+            padding: 60px 32px;
+            background-color: white;
+            text-align: center;
+        }
+        section h2 { font-size: 1.8rem; color: #2f855a; margin-bottom: 20px; }
+        section p, section blockquote { max-width: 700px; margin: auto; font-size: 1.1rem; color: #444; }
+
+        /* ===== Product Grid ===== */
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            width: 280px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            text-align: left;
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; border-radius: 8px; }
+        .product-card h3 { margin: 10px 0 5px; color: #2f855a; }
+
+        /* ===== Modal ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-layout { display: flex; flex-wrap: wrap; gap: 20px; }
+        .modal-left img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+        .modal-info p { margin: 5px 0; font-size: 14px; }
+        .modal-right h3 { color: #007b7f; margin-top: 10px; }
+        .modal-right ul { padding-left: 20px; text-align: left; }
+        .results {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+        .results img {
+            max-height: 100px;
+            object-fit: contain;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .results img:hover { transform: scale(1.1); }
+
+        /* ===== Footer ===== */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e6fffa;
+            color: #276749;
+            font-size: 0.9rem;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; }
+            .modal-content { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="logo">the <strong>cocoon</strong></div>
+    <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="about.html">About</a>
+        <a href="product.html">Product</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="contact.html">Contact</a>
+        <button class="btn">Đăng ký</button>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-text">
+        <h1>Sản phẩm chăm sóc tóc từ thiên nhiên</h1>
+        <p>Chăm sóc tóc bằng nguyên liệu tự nhiên an toàn và lành tính.</p>
+        <button class="btn">Chi tiết sản phẩm</button>
+    </div>
+    <div class="hero-img">
+        <img src="images/cocoon.png" alt="Sản phẩm thiên nhiên">
+    </div>
+</section>
+
+<section class="about" id="about">
+    <h2>Về Chúng Tôi</h2>
+    <p>Sản phẩm Cocoon từ thiên nhiên thuần chay, không thử nghiệm trên động vật, cam kết mang lại sự an toàn tuyệt đối cho người dùng.</p>
+    <h3>Viện Nghiên cứu Vi sinh vật JUNG-ANG</h3>
+    <blockquote>“Chúng tôi sẽ tập trung hơn nữa vào nghiên cứu vì sức khỏe chất lượng cao, giúp bạn có một cuộc sống tốt hơn và cải thiện hơn.”</blockquote>
+    <p>Viện được thành lập từ 1981, chuyên sản phẩm bổ sung vi sinh, thực phẩm lên men, v.v.</p>
+</section>
+
+<section class="products" id="products">
+    <h2>Sản Phẩm Nổi Bật</h2>
+    <div class="product-grid">
+        <div class="product-card" onclick="openModal(
+            'Dầu gội bưởi',
+            ['Giúp tóc chắc khỏe và bóng mượt.', 'Chiết xuất từ vỏ bưởi tự nhiên.', 'Không chứa silicone.'],
+            'images/cocoon.png',
+            '300ml',
+            '150,000 VNĐ',
+            'Tóc giảm gãy rụng rõ rệt sau 2 tuần.'
+        )">
+            <img src="images/cocoon.png" alt="Dầu gội bưởi" />
+            <h3>Dầu gội bưởi</h3>
+            <p>Giúp tóc chắc khỏe và bóng mượt.</p>
+            <button class="btn">Xem chi tiết</button>
+        </div>
+
+        <div class="product-card" onclick="openModal(
+            'Serum nghệ Hưng Yên',
+            ['Phục hồi da mụn, sáng da.', 'Chiết xuất nghệ Hưng Yên.', 'Không gây kích ứng.'],
+            'images/cocoon.png',
+            '50ml',
+            '220,000 VNĐ',
+            'Da sáng mịn, mờ thâm sau 4 tuần.'
+        )">
+            <img src="images/cocoon.png" alt="Serum nghệ Hưng Yên" />
+            <h3>Serum nghệ Hưng Yên</h3>
+            <p>Phục hồi da mụn, sáng da.</p>
+            <button class="btn">Xem chi tiết</button>
+        </div>
+
+        <div class="product-card" onclick="openModal(
+            'Tẩy da chết cà phê',
+            ['Loại bỏ tế bào chết.', 'Chiết xuất cà phê nguyên chất.', 'Mang lại làn da mịn màng.'],
+            'images/cocoon.png',
+            '150g',
+            '180,000 VNĐ',
+            'Da sáng rõ, mềm mịn hơn sau 1 tuần.'
+        )">
+            <img src="images/cocoon.png" alt="Tẩy da chết cà phê" />
+            <h3>Tẩy da chết cà phê</h3>
+            <p>Loại bỏ tế bào chết hiệu quả.</p>
+            <button class="btn">Xem chi tiết</button>
+        </div>
+
+        <div class="product-card" onclick="openModal(
+            'Nước hoa hồng bí đao',
+            ['Làm dịu da, se khít lỗ chân lông.', 'Chiết xuất bí đao.', 'Dành cho da dầu mụn.'],
+            'images/cocoon.png',
+            '150ml',
+            '175,000 VNĐ',
+            'Da mịn màng và ít mụn sau 2 tuần.'
+        )">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf9YFiKKMc8E_Tu6ukH_yPgwIzLFpJQNfZFQ&s" alt="Nước hoa hồng bí đao" />
+            <h3>Nước hoa hồng bí đao</h3>
+            <p>Giúp se khít lỗ chân lông.</p>
+            <button class="btn">Xem chi tiết</button>
+        </div>
+    </div>
+
+    <!-- Nút chuyển đến trang Product -->
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="product.html" class="btn">Xem thêm sản phẩm</a>
+    </div>
+</section>
+
+<section class="blogs" id="blogs">
+    <h2>Dịch vụ & Chương trình</h2>
+    <div class="blog-item">
+        <h3>Chương trình Detox</h3>
+        <p>Giúp cơ thể thanh lọc và phục hồi thông qua công nghệ vi sinh.</p>
+    </div>
+    <div class="blog-item">
+        <h3>Công nghệ vi sinh vật</h3>
+        <p>Ứng dụng vi sinh vật trong chăm sóc sức khỏe và làn da.</p>
+    </div>
+</section>
+
+<section class="feedback" id="contact">
+    <h2>Phản hồi từ khách hàng</h2>
+    <blockquote>
+        "Sản phẩm thiên nhiên an toàn, tóc mình mượt hẳn ra sau vài tuần dùng!"
+        <cite>- Lan Anh, Hà Nội</cite>
+    </blockquote>
+</section>
+
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-left">
+                <img id="modalImage" src="" alt="Ảnh sản phẩm">
+                <div class="modal-info">
+                    <p><strong>Tên sản phẩm:</strong> <span id="modalName"></span></p>
+                    <p><strong>Dung lượng:</strong> <span id="modalVolume"></span></p>
+                    <p><strong>Giá tiêu dùng:</strong> <span id="modalPrice"></span></p>
+                </div>
+            </div>
+            <div class="modal-right">
+                <h3>Đặc trưng</h3>
+                <ul id="modalFeatures"></ul>
+                <h3>thành phần chính</h3>
+                <p id="modalResult"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2025 The Cocoon Vietnam. Bảo lưu mọi quyền.</p>
+</footer>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('fade-in');
+    });
+
+    function openModal(name, features, imageUrl, volume, price, result) {
+        document.getElementById('modalName').innerText = name;
+        document.getElementById('modalVolume').innerText = volume;
+        document.getElementById('modalPrice').innerText = price;
+        document.getElementById('modalImage').src = imageUrl;
+        const featureList = document.getElementById('modalFeatures');
+        featureList.innerHTML = "";
+        features.forEach(f => {
+            const li = document.createElement('li');
+            li.textContent = f;
+            featureList.appendChild(li);
+        });
+        document.getElementById('modalResult').innerText = result || "";
+        document.getElementById('productModal').style.display = 'flex';
+    }
+    function closeModal() {
+        document.getElementById('productModal').style.display = 'none';
+    }
+    window.onclick = function(e) {
+        const modal = document.getElementById('productModal');
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

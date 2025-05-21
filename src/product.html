@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm - The Cocoon Vietnam</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .modal-left {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .modal-left img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .modal-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .modal-right {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .modal-right h3 {
+            margin-top: 10px;
+            color: #007b7f;
+        }
+
+        .modal-right ul {
+            padding-left: 20px;
+            list-style: disc;
+        }
+
+        .modal-results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .modal-results img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="logo">the <strong>cocoon</strong></div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="product.html" class="active">Product</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="product-list">
+    <h1>Sản phẩm nổi bật</h1>
+    <div class="product-grid">
+        <div class="product-card" onclick="openModal(
+            'Catch-Cholesterol',
+            [
+                'Sản phẩm giúp loại bỏ cholesterol, sỏi mật, mỡ và phân trong hệ tuần hoàn.',
+                'Detox làm sạch hệ tuần hoàn chỉ bằng một ngày.',
+                'Thành phần tự nhiên tinh khiết.',
+                'Có thể nhìn thấy chất thải/sỏi bằng mắt sau 1 ngày.',
+                'Giảm lượng mỡ nội tạng/chất béo dưới da.',
+                'Ổn định huyết áp, chỉ số đường.',
+                'Tỷ lệ khách hàng mua lại cao.'
+            ],
+            'images/cocoon.png',
+            'A(200ml x 4ea), B(200ml x 2ea)',
+            '275,000 KRW',
+            ['images/result1.jpg', 'images/result2.jpg', 'images/result3.jpg']
+        )">
+            <img src="images/cocoon.png" alt="Catch-Cholesterol">
+            <h3>Catch-Cholesterol</h3>
+            <p>Sản phẩm detox loại bỏ cholesterol, mỡ thừa...</p>
+        </div>
+    </div>
+</section>
+
+<!-- Modal chi tiết sản phẩm -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+
+        <div class="modal-layout">
+            <div class="modal-left">
+                <img id="modalImage" src="" alt="Ảnh sản phẩm">
+                <div class="modal-info">
+                    <p><strong>Tên sản phẩm:</strong> <span id="modalName"></span></p>
+                    <p><strong>Dung lượng:</strong> <span id="modalVolume"></span></p>
+                    <p><strong>Giá tiêu dùng:</strong> <span id="modalPrice"></span></p>
+                </div>
+            </div>
+
+            <div class="modal-right">
+                <h3>Đặc trưng</h3>
+                <ul id="modalFeatures"></ul>
+                <h3>Kết quả</h3>
+                <div class="modal-results" id="modalResults"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2025 The Cocoon Vietnam. Bảo lưu mọi quyền.</p>
+</footer>
+
+<script>
+    function openModal(name, features, imageUrl, volume, price, resultImages) {
+        document.getElementById('modalName').innerText = name;
+        document.getElementById('modalVolume').innerText = volume;
+        document.getElementById('modalPrice').innerText = price;
+        document.getElementById('modalImage').src = imageUrl;
+
+        const featureList = document.getElementById('modalFeatures');
+        featureList.innerHTML = "";
+        features.forEach(f => {
+            const li = document.createElement("li");
+            li.textContent = f;
+            featureList.appendChild(li);
+        });
+
+        const resultContainer = document.getElementById('modalResults');
+        resultContainer.innerHTML = "";
+        resultImages.forEach(src => {
+            const img = document.createElement("img");
+            img.src = src;
+            resultContainer.appendChild(img);
+        });
+
+        document.getElementById('productModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('productModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('productModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
