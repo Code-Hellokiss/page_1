@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm - The Cocoon Vietnam</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fefefe;
+            margin: 0;
+            color: #333;
+        }
+        .modal {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 9999;
+            padding: 20px;
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 900px;
+            width: 100%;
+            background: #10441f;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            position: relative;
+            color: #fff;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            background: #2e7031;
+            border: 2px solid white;
+            color: white;
+            border-radius: 8px;
+            padding: 2px 8px;
+            cursor: pointer;
+        }
+        .modal-layout {
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .modal-layout img {
+            border-radius: 10px;
+        }
+        .modal-layout h3, h4 {
+            color: #aef5ae;
+            margin: 0 0 10px;
+        }
+        .modal-layout p, .modal-layout ul {
+            font-size: 1rem;
+            color: #e0f0e0;
+        }
+        .modal-layout ul {
+            padding-left: 20px;
+            list-style: disc;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 15px;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .product-card h3 {
+            font-size: 1.1rem;
+            color: #166534;
+            margin: 10px 0 5px;
+        }
+        .product-card p {
+            font-size: 0.95rem;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+<div id="header-placeholder"></div>
+<h1 style="text-align:center; color:#2b6a4d; margin-top: 20px;">Sản phẩm của The Cocoon</h1>
+<div class="product-grid" id="productGrid"></div>
+
+<div class="modal" id="productModal">
+    <div class="modal-content" role="document">
+        <button class="close" aria-label="Đóng" onclick="closeModal()">&times;</button>
+        <div class="modal-layout">
+            <div class="left" style="flex: 1 1 250px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <img id="modalImage" src="" alt="" style="width: 100%; max-width: 240px; border-radius: 10px; object-fit: cover; height: 240px;">
+                <div>
+                    <p><strong>Thương hiệu:</strong> Cocoon</p>
+                    <p><strong>Xuất xứ:</strong> Việt Nam</p>
+                    <p style="color: #a2eaa2;"><strong>Quy cách:</strong> <span id="modalPrice"></span></p>
+                </div>
+            </div>
+            <div class="right" style="flex: 2 1 400px;">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDesc"></p>
+
+                <h4>Đặc trưng:</h4>
+                <ul id="modalUses"></ul>
+
+                <h4>Kết quả:</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; cursor: pointer;" onclick="openImageViewer(event)">
+                    <img src="images/img_7.png" alt="Kết quả 1" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+                    <img src="images/img.png" alt="Kết quả 2" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+                    <img src="images/img_6.png" alt="Kết quả 3" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+                    <img src="images/img_3.png" alt="Kết quả 4" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+                    <img src="images/img_1.png" alt="Kết quả 5" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    const products = [
+        {
+            name: "Catch-Cholesterol",
+            image: "images/img.png",
+            specification: "A(200ml x 4ea), B(200ml x 2ea)",
+            description: "Sản phẩm giúp loại bỏ cholesterol, sỏi mật, mỡ và phân có trong hệ tuần hoàn, ruột và gan và giúp các vi khuẩn có lợi sinh sôi nảy nở.",
+            ingredients: [
+                "Sản phẩm detox hữu ích từ thành phần tự nhiên tinh khiết",
+                "Thải độc tố / chất thải / sỏi thận có thể nhìn thấy bằng mắt thường",
+                "Giảm chất béo nội tạng và dưới da",
+                "Cân bằng chỉ số huyết áp và đường huyết"
+            ],
+            uses: [
+                "Làm sạch hệ tuần hoàn trong cơ thể chỉ bằng một ngày detox",
+                "Xác nhận lượng mỡ giảm qua xét nghiệm hoặc đo lường",
+                "Sử dụng lặp lại với tỉ lệ mua lại cao"
+            ],
+            instructions: "Sử dụng theo hướng dẫn kèm theo sản phẩm."
+        }
+    ];
+
+    function createProductCard(product) {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+      `;
+        card.onclick = () => openModal(product);
+        return card;
+    }
+
+    function openModal(product) {
+        document.getElementById('modalImage').src = product.image;
+        document.getElementById('modalTitle').textContent = product.name;
+        document.getElementById('modalDesc').textContent = product.description;
+        document.getElementById('modalPrice').textContent = product.specification;
+
+
+
+        const usesList = document.getElementById('modalUses');
+        usesList.innerHTML = "";
+        product.uses.forEach(use => {
+            const li = document.createElement('li');
+            li.textContent = use;
+            usesList.appendChild(li);
+        });
+
+        document.getElementById('productModal').classList.add('show');
+    }
+
+    function closeModal() {
+        document.getElementById('productModal').classList.remove('show');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('productGrid');
+        products.forEach(product => grid.appendChild(createProductCard(product)));
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("header.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("header-placeholder").innerHTML = data;
+            })
+            .catch(error => console.error("Không thể tải header:", error));
+    });
+    function openImageViewer(event) {
+        const target = event.target;
+        if (target.tagName === 'IMG') {
+            const imgSrc = target.src;
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = 0;
+            overlay.style.left = 0;
+            overlay.style.right = 0;
+            overlay.style.bottom = 0;
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = 10000;
+
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '90%';
+            img.style.borderRadius = '10px';
+            img.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.5)';
+
+            overlay.appendChild(img);
+            overlay.onclick = () => document.body.removeChild(overlay);
+
+            document.body.appendChild(overlay);
+        }
+    }
+</script>
+</body>
+</html>
