@@ -3,224 +3,142 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>The Cocoon - Blog & Dịch vụ</title>
+    <title>The Cocoon - Blogs</title>
+
     <style>
-        /* --- Reset cơ bản --- */
-        * {
-            box-sizing: border-box;
-            margin: 0; padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background-color: #fff5f0;
-            color: #4a2c2a;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* --- Header & Navbar --- */
-        header {
-            background-color: #6b3e3e;
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        nav ul li a {
-            color: white;
-            font-weight: 600;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            background-color: #522e2e;
-        }
-
-        /* --- Blogs Section --- */
-        .container {
-            max-width: 1140px;
-            margin: 2rem auto 4rem;
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
             padding: 0 1rem;
-            flex: 1;
         }
 
-        .section-title {
+        h2 {
             font-size: 2rem;
-            font-weight: bold;
             text-align: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            color: #14532d;
         }
 
-        .section-description {
-            text-align: center;
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            color: #5a5a5a;
-        }
-
-        .blogs-list {
+        .blog-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .blog-card {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
-            height: 100%;
         }
 
-        .blog-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .blog-img {
+        .blog-card img {
             width: 100%;
             height: 180px;
             object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .blog-content {
-            padding: 1rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .blog-title {
-            font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .blog-excerpt {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: #6b3e3e;
-            color: white;
-            padding: 0.5rem 1rem;
             border-radius: 6px;
-            font-size: 0.9rem;
-            text-align: center;
-            transition: background-color 0.3s ease;
-            align-self: flex-start;
+            margin-bottom: 1rem;
         }
 
-        .btn:hover {
-            background-color: #522e2e;
+        .blog-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: #2f855a;
         }
 
-        /* --- Footer --- */
-        footer {
-            background-color: #6b3e3e;
+        .blog-card p {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        .blog-card a {
+            margin-top: 1rem;
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: #2f855a;
             color: white;
+            border-radius: 4px;
             text-align: center;
-            padding: 1rem 1rem;
-            font-size: 0.9rem;
-            margin-top: auto;
         }
 
-        /* --- Responsive --- */
-        @media(max-width: 480px) {
-            nav ul {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
+        .blog-card a:hover {
+            background: #276749;
+        }
+
+        /* Active nav item */
+        .nav a.active {
+            font-weight: bold;
+            border-bottom: 2px solid #22c55e;
+            padding-bottom: 2px;
         }
     </style>
 </head>
 <body>
-<header>
-    <h1>The Cocoon</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li><a href="about.html">Giới thiệu</a></li>
-            <li><a href="product.html">Sản phẩm</a></li>
-            <li><a href="blogs.html" class="active">Blog & Dịch vụ</a></li>
-            <li><a href="contact.html">Liên hệ</a></li>
-        </ul>
-    </nav>
-</header>
 
-<main class="container">
-    <section id="blogs" class="section">
-        <h2 class="section-title">Blog & Dịch vụ</h2>
-        <p class="section-description">Cập nhật kiến thức làm đẹp và chăm sóc da cùng The Cocoon</p>
+<!-- HEADER PLACEHOLDER -->
+<div id="header" role="banner" aria-label="Phần đầu trang"></div>
 
-        <div class="blogs-list">
-            <!-- Blog item 1 -->
-            <div class="blog-card">
-                <img src="images/blog1.jpg" alt="Cách chăm sóc da dầu" class="blog-img" />
-                <div class="blog-content">
-                    <h3 class="blog-title">5 Bước chăm sóc da dầu đúng cách</h3>
-                    <p class="blog-excerpt">Khám phá quy trình chăm sóc da phù hợp cho người da dầu, giúp giảm bã nhờn và ngăn ngừa mụn hiệu quả.</p>
-                    <a href="#" class="btn">Xem chi tiết</a>
-                </div>
-            </div>
-
-            <!-- Blog item 2 -->
-            <div class="blog-card">
-                <img src="images/blog2.jpg" alt="Dưỡng da mùa hè" class="blog-img" />
-                <div class="blog-content">
-                    <h3 class="blog-title">Dưỡng da mùa hè: những điều nên tránh</h3>
-                    <p class="blog-excerpt">Mùa hè nóng bức có thể khiến làn da bị tổn thương nếu không chăm sóc đúng cách. Cùng tìm hiểu nhé!</p>
-                    <a href="#" class="btn">Xem chi tiết</a>
-                </div>
-            </div>
-
-            <!-- Blog item 3 -->
-            <div class="blog-card">
-                <img src="images/blog3.jpg" alt="Thực phẩm đẹp da" class="blog-img" />
-                <div class="blog-content">
-                    <h3 class="blog-title">7 loại thực phẩm giúp da sáng mịn</h3>
-                    <p class="blog-excerpt">Chế độ ăn uống cũng ảnh hưởng lớn đến làn da. Hãy bổ sung những thực phẩm này để luôn rạng rỡ!</p>
-                    <a href="#" class="btn">Xem chi tiết</a>
-                </div>
-            </div>
+<main>
+    <h2>Blog mới nhất từ The Cocoon</h2>
+    <div class="blog-list">
+        <div class="blog-card">
+            <img src="images/blog1.jpg" alt="Bài viết 1" />
+            <h3>Lợi ích của việc dùng thảo dược tự nhiên</h3>
+            <p>Thảo dược thiên nhiên mang lại nhiều tác dụng tích cực cho sức khỏe và làn da. Hãy cùng khám phá!</p>
+            <a href="blog-detail-1.html">Xem chi tiết</a>
         </div>
-    </section>
+
+        <div class="blog-card">
+            <img src="images/blog2.jpg" alt="Bài viết 2" />
+            <h3>Chăm sóc cơ thể từ bên trong</h3>
+            <p>Sử dụng thực phẩm chức năng đúng cách giúp bạn khỏe từ gốc và giữ vẻ ngoài rạng rỡ.</p>
+            <a href="blog-detail-2.html">Xem chi tiết</a>
+        </div>
+    </div>
 </main>
 
-<footer>
-    &copy; 2025 The Cocoon - Bản quyền thuộc về The Cocoon.
-</footer>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("header.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("header").innerHTML = data;
+
+                // Highlight menu tab
+                const currentPath = window.location.pathname.split("/").pop();
+                document.querySelectorAll(".nav a").forEach(link => {
+                    const href = link.getAttribute("href");
+                    if (
+                        href === currentPath ||
+                        (currentPath.startsWith("blog-detail") && href === "blogs.html")
+                    ) {
+                        link.classList.add("active");
+                        link.setAttribute("aria-current", "page");
+                    }
+                });
+            })
+            .catch(error => console.error("Không thể tải header:", error));
+    });
+</script>
+<div id="contactButtonsContainer"></div>
+
+<script>
+    fetch("icon.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("contactButtonsContainer").innerHTML = data;
+        });
+</script>
+
 </body>
 </html>

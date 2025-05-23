@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chăm sóc cơ thể từ bên trong với thực phẩm chức năng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            margin: 0;
+        }
+
+        /* Phần nội dung chính */
+        main {
+            max-width: 800px;
+            margin: auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #14532d;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header" role="banner" aria-label="Phần đầu trang"></div>
+
+<main>
+    <h1>Chăm sóc cơ thể từ bên trong với thực phẩm chức năng</h1>
+    <img src="images/img_9.png" alt="Thực phẩm chức năng chăm sóc sức khỏe">
+    <p>Thực phẩm chức năng là những sản phẩm hỗ trợ bổ sung dinh dưỡng hoặc hoạt chất có lợi, giúp tăng cường sức khỏe, cải thiện sinh lý hoặc hỗ trợ điều trị một số vấn đề cụ thể.</p>
+
+    <p>Việc chăm sóc cơ thể từ bên trong là xu hướng được nhiều người lựa chọn vì:</p>
+    <ul>
+        <li>Hiệu quả bền vững nhờ nuôi dưỡng các cơ quan từ gốc rễ.</li>
+        <li>Giúp cải thiện thể chất, tinh thần và làn da từ bên trong.</li>
+        <li>Thường được kết hợp với lối sống khoa học để tăng hiệu quả.</li>
+    </ul>
+
+    <p>Một số thực phẩm chức năng phổ biến hiện nay bao gồm: viên uống bổ sung vitamin, sản phẩm chăm sóc da từ collagen, tảo xoắn, omega-3, men vi sinh hỗ trợ tiêu hóa...</p>
+
+    <p>Hãy chọn sản phẩm rõ nguồn gốc, có nghiên cứu lâm sàng và nhận được sự tư vấn từ chuyên gia y tế khi cần thiết.</p>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("../header.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("header").innerHTML = data;
+            });
+    });
+</script>
+<div id="contactButtonsContainer"></div>
+
+<script>
+    fetch("icon.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("contactButtonsContainer").innerHTML = data;
+        });
+</script>
+
+</body>
+</html>

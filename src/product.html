@@ -7,9 +7,42 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fefefe;
+            background: #f9fafb;
             margin: 0;
             color: #333;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+            padding: 40px 5vw;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .product-card h3 {
+            font-size: 1.1rem;
+            margin: 12px;
+            color: #166534;
+        }
+        .product-card p {
+            margin: 0 12px 12px;
+            font-size: 0.95rem;
+            color: #555;
         }
         .modal {
             display: none;
@@ -17,7 +50,7 @@
             align-items: center;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.6);
             z-index: 9999;
             padding: 20px;
         }
@@ -25,14 +58,71 @@
             display: flex;
         }
         .modal-content {
+            display: flex;
+            flex-direction: column;
+            background: #10441f;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
             max-width: 900px;
             width: 100%;
-            background: #10441f;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            position: relative;
-            color: #fff;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        .modal-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        .left {
+            flex: 1 1 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        @media(min-width: 768px) {
+            .modal-layout {
+                flex-direction: row;
+            }
+        }
+        .left img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+        }
+        .modal-layout h3, .modal-layout h4 {
+            font-size: 1.5rem;
+            color: #aef5ae;
+            margin-bottom: 10px;
+        }
+        .modal-layout ul {
+            padding-left: 20px;
+            list-style: disc;
+        }
+        .modal-layout p, .modal-layout li {
+            color: #e0f0e0;
+        }
+        #modalPrice {
+            color: #a2eaa2;
+            font-weight: bold;
+        }
+        .results-images {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        .results-images img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            flex-shrink: 0;
         }
         .close {
             position: absolute;
@@ -46,65 +136,17 @@
             padding: 2px 8px;
             cursor: pointer;
         }
-        .modal-layout {
-            padding: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-        .modal-layout img {
-            border-radius: 10px;
-        }
-        .modal-layout h3, h4 {
-            color: #aef5ae;
-            margin: 0 0 10px;
-        }
-        .modal-layout p, .modal-layout ul {
-            font-size: 1rem;
-            color: #e0f0e0;
-        }
-        .modal-layout ul {
-            padding-left: 20px;
-            list-style: disc;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            padding: 20px;
-        }
-        .product-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: #fff;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            padding: 15px;
-            cursor: pointer;
-            transition: box-shadow 0.2s ease;
-        }
-        .product-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .product-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 6px;
-        }
-        .product-card h3 {
-            font-size: 1.1rem;
+        h1 {
+            text-align: center;
             color: #166534;
-            margin: 10px 0 5px;
-        }
-        .product-card p {
-            font-size: 0.95rem;
-            color: #444;
+            margin-top: 30px;
         }
     </style>
+
 </head>
 <body>
 <div id="header-placeholder"></div>
-<h1 style="text-align:center; color:#2b6a4d; margin-top: 20px;">Sản phẩm của The Cocoon</h1>
+<h1 style="text-align:center; color:#2b6a4d; margin-top: 20px; font-size: 2rem;">Sản phẩm của The Cocoon</h1>
 <div class="product-grid" id="productGrid"></div>
 
 <div class="modal" id="productModal">
@@ -112,54 +154,237 @@
         <button class="close" aria-label="Đóng" onclick="closeModal()">&times;</button>
         <div class="modal-layout">
             <div class="left" style="flex: 1 1 250px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                <img id="modalImage" src="" alt="" style="width: 100%; max-width: 240px; border-radius: 10px; object-fit: cover; height: 240px;">
+                <img id="modalImage" src="" alt="Hình ảnh sản phẩm">
                 <div>
-                    <p><strong>Thương hiệu:</strong> Cocoon</p>
-                    <p><strong>Xuất xứ:</strong> Việt Nam</p>
-                    <p style="color: #a2eaa2;"><strong>Quy cách:</strong> <span id="modalPrice"></span></p>
+                    <p><strong>Thương hiệu:</strong> Micros</p>
+                    <p><strong>Xuất xứ:</strong> Hàn Quốc</p>
+                    <p style="color: #a2eaa2;"><strong>Giá Thành:</strong> <span id="modalPrice"></span></p>
                 </div>
             </div>
             <div class="right" style="flex: 2 1 400px;">
                 <h3 id="modalTitle"></h3>
                 <p id="modalDesc"></p>
-
                 <h4>Đặc trưng:</h4>
                 <ul id="modalUses"></ul>
 
                 <h4>Kết quả:</h4>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; cursor: pointer;" onclick="openImageViewer(event)">
-                    <img src="images/img_7.png" alt="Kết quả 1" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
-                    <img src="images/img.png" alt="Kết quả 2" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
-                    <img src="images/img_6.png" alt="Kết quả 3" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
-                    <img src="images/img_3.png" alt="Kết quả 4" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
-                    <img src="images/img_1.png" alt="Kết quả 5" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+                <div id="modalResults" class="results-images" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5rem;" onclick="openImageViewer(event)">
+
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <script>
     const products = [
         {
             name: "Catch-Cholesterol",
-            image: "images/img.png",
+            image: "images/img_8.png",
             specification: "A(200ml x 4ea), B(200ml x 2ea)",
             description: "Sản phẩm giúp loại bỏ cholesterol, sỏi mật, mỡ và phân có trong hệ tuần hoàn, ruột và gan và giúp các vi khuẩn có lợi sinh sôi nảy nở.",
-            ingredients: [
-                "Sản phẩm detox hữu ích từ thành phần tự nhiên tinh khiết",
-                "Thải độc tố / chất thải / sỏi thận có thể nhìn thấy bằng mắt thường",
-                "Giảm chất béo nội tạng và dưới da",
-                "Cân bằng chỉ số huyết áp và đường huyết"
-            ],
             uses: [
-                "Làm sạch hệ tuần hoàn trong cơ thể chỉ bằng một ngày detox",
-                "Xác nhận lượng mỡ giảm qua xét nghiệm hoặc đo lường",
-                "Sử dụng lặp lại với tỉ lệ mua lại cao"
-            ],
-            instructions: "Sử dụng theo hướng dẫn kèm theo sản phẩm."
+                "Một chương trình detox giúp làm sạch hệ tuần hoàn trong cơ thể chỉ bằng một ngày.",
+                "Nó là một sản phẩm detox hữu ích cho cơ thể được làm từ các thành phần tự nhiên tinh khiết.",
+                "Trên thực tế, độc tố / chất thải / sỏi thận có thể được xác nhận bằng mắt thường vào ngày hôm sau.",
+                "Có thể xác nhận rằng lượng mỡ trong cơ thể (chất béo nội tạng/chất béo dưới da) giảm sau khi detox.",
+                "Bình thường hóa các chỉ số có thể đo được thông qua xét nghiệm máu như huyết áp, chỉ số đường.",
+                "Có rất nhiều yếu tố có thể được sử dụng để tiếp thị sản phẩm. Khi hoàn thành detox một cách suôn sẻ, tỷ lệ khách hàng mua lại là cao."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Ato-Cell",
+            image: "images/img_9.png",
+            specification: "500ml x 1ea / 500ml x 3ea — 70,000 KRW / 199,000 KRW",
+            description: "Bán cho những người bị dị ứng và bệnh về da. " +
+                "Hiệu quả trong 1–2 tuần với vấn đề đường ruột, miễn dịch.",
+            uses: [
+                "Khái niệm 'uống vi sinh vật sống bằng thức uống có trạng thái lỏng'. Không chỉ là dạng bột lactobacillus thông thường.",
+                "Thành phần tự nhiên giúp hấp thu tốt, đào thải cholesterol và độc tố. Không chứa chất độc hại.",
+                "Không phải probiotics dạng bột mà là sản phẩm ‘trao đổi chất vi sinh’ từ nuôi cấy vi sinh vật.",
+                "Giúp phục hồi tổn thương ruột và cải thiện viêm da, herpes, dị ứng,...",
+                "Vị cam dễ uống, đặc biệt phù hợp với trẻ em nhạy cảm vị giác.",
+                "Thành phần chính gồm chiết xuất thảo mộc nuôi cấy nấm linh chi có bằng sáng chế (Emodine), hỗ trợ ức chế virus corona.",
+                "Sản phẩm dài sữa vi sinh vật trung dưỡng (axit béo chuỗi ngắn) tạo từ 18 giai đoạn nuôi cấy độc quyền."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Marine A Premium",
+            image: "images/img_10.png",
+            specification: "6g x 30ea / 6g x 30ea x 3BOX — 90,000 KRW / 270,000 KRW",
+            description: "Cải thiện môi trường ruột, hấp thụ chất béo, nước mật và cholesterol.",
+            uses: [
+                "Tăng cường vi khuẩn có lợi và giảm vi khuẩn có hại trong ruột.",
+                "Hiệu quả nhanh khi rối loạn dạ dày, viêm ruột, khó tiêu hoặc táo bón.",
+                "Hiệu quả cao nếu dùng chung với 'Catch-Cholesterol'.",
+                "Sản phẩm chứa axit béo chuỗi ngắn, nuôi cấy trong 3 tháng.",
+                "Octacosanol: cải thiện thể lực, sức bền, điều chỉnh cholesterol.",
+                "GABA: cải thiện huyết áp, giảm đau, giảm căng thẳng.",
+                "Chất xơ không tiêu: cải thiện tiêu hóa, giảm cholesterol sau ăn."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Original Postbiotics",
+            image: "images/img_11.png", // Cập nhật với đúng tên file ảnh
+            specification: "3g x 30ea — 65,000 KRW",
+            description: "Sản phẩm chứa 50 tỷ vi khuẩn sinh sản, tăng cường chức năng ruột và sức khỏe đường ruột.",
+            uses: [
+                "50 tỷ vi khuẩn sinh sản đã được đầu tư. Hơn 10 tỷ con được đảm bảo, gấp 100 lần tiêu chuẩn của Bộ Thực phẩm và Dược phẩm Hàn Quốc.",
+                "Chứa chủng LGG đã được kiểm tra lâm sàng, có khả năng bám và tồn tại trong ruột.",
+                "Sản phẩm có chức năng hóa vi sinh giúp hấp thu mà không cần tiêu hóa.",
+                "Hiệu quả tức thì đối với người bị rối loạn tiêu hóa, tiêu chảy, viêm đại tràng,...",
+                "Chứa tới 17 loại men lactic (4 loại Bifidobacterium, 11 loại Lactobacillus).",
+                "Probiotics: Tăng sinh vi khuẩn có lợi, giảm vi khuẩn có hại, hỗ trợ hệ tiêu hóa.",
+                "Selenium: Chống oxy hóa và bảo vệ tế bào khỏi độc tố.",
+                "Vitamin C, B1, B2, B6: Giúp trao đổi chất, hỗ trợ năng lượng và bảo vệ cơ thể.",
+                "Kẽm: Hỗ trợ hệ miễn dịch và phân chia tế bào."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Micro S Diet",
+            image: "images/img_12.png", // Thay thế bằng đúng tên file ảnh đã upload
+            specification: "Bao gồm: Catch-Cholesterol, Protein S, Sunshine, Moonlight, Marine A Premium",
+            description: "Chế độ ăn vi sinh vật giúp làm sạch hệ tuần hoàn, gan và ruột, hỗ trợ giảm cân hiệu quả mà không cần tập thể dục hoặc ăn kiêng quá nghiêm ngặt.",
+            uses: [
+                "Thoát khỏi chế độ ăn kiêng tạm thời và hạn chế lượng calo, giúp cơ thể thải chất béo và ức chế sự thèm ăn.",
+                "Làm sạch hệ tuần hoàn, gan, ruột và bình thường hóa hệ vi sinh vật sống trong ruột.",
+                "Hiệu quả giảm cân nhanh chóng ngay cả khi không thiết lập lịch trình tập luyện đặc biệt.",
+                "Cải thiện các vấn đề như rối loạn tuần hoàn, gan và rò rỉ đường ruột.",
+                "Phù hợp cho cá nhân sau khi xét nghiệm vi sinh vật đường ruột và DNA cá nhân.",
+                "Chiết xuất thảo mộc nuôi cấy nấm linh chi (Emodine) giúp ức chế virus corona.",
+                "Catch-Cholesterol: loại bỏ cholesterol, làm sạch ruột và cân bằng hệ vi sinh vật.",
+                "Marine A Premium: sản phẩm vi sinh vật chuyên sâu cải thiện ruột không cần thay đổi thói quen ăn uống.",
+                "Protein S, Sunshine, Moonlight: khôi phục cân bằng vi sinh vật, hiệu quả rõ rệt sau 7-10 ngày sử dụng.",
+                "Xét nghiệm di truyền: tối ưu hóa quá trình ăn kiêng thông qua dữ liệu cá nhân và hệ vi sinh vật."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Sunshine, Moonlight",
+            image: "images/img_13.png",
+            specification: "mỗi chai 60 viên — 55,000 KRW mỗi chai",
+            description: "Sản phẩm hỗ trợ giảm cân và tiêu hóa nhờ thành phần tự nhiên và công nghệ vi sinh vật tiên tiến.",
+            uses: [
+                "Hiệu quả gần như ngay lập tức trong vòng 1–2 ngày.",
+                "Thay thế tốt cho người tiêu dùng không thích psyllium husk.",
+                "Không phồng lên vào ban đêm, giúp ngăn chặn ăn khuya.",
+                "Sản phẩm 'đại sứ vi sinh vật' cải thiện chuyển hóa chất béo nhờ điều chỉnh hệ vi sinh vật ruột.",
+                "Không chứa các dưỡng chất chức năng phổ biến nên dễ hấp thụ.",
+                "Chứa 17 loại khuẩn axit lactic hỗn hợp, hấp thụ lên tới 100 triệu CFU mỗi lần uống.",
+                "Chứa các thành phần tự nhiên như trà xanh, lô hội, chiết xuất Garcinia,..."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Happyroot Plus",
+            image: "images/img_11.png",
+            specification: "40g x 10ea — 110,000 KRW",
+            description: "Thực phẩm y tế đặc biệt dành cho người có nhu cầu dinh dưỡng riêng do rối loạn tiêu hóa, ăn uống, hoặc bệnh lý nền.",
+            uses: [
+                "Phù hợp với người bị hạn chế ăn uống, tiêu hóa, hấp thu và trao đổi chất.",
+                "Hiệu quả cao trong cải thiện khả năng chống ung thư mục tiêu theo nghiên cứu từ Hàn Quốc.",
+                "Cung cấp dinh dưỡng dễ hấp thu cho người bệnh ung thư và người khó ăn.",
+                "Phù hợp với các nhóm bệnh như rối loạn bẩm sinh, bệnh thận, bệnh gan,...",
+                "Dễ tiêu hóa và sử dụng đơn giản thay cho bữa ăn."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Healthy Evanen",
+            image: "images/img_9.png",
+            specification: "3g x 30ea / 3g x 30ea x 3BOX — 66,000 KRW / 169,400 KRW",
+            description: "Giải pháp hỗ trợ cải thiện viêm nướu và bệnh nha chu từ nguyên nhân gốc trong đường ruột, giúp điều hòa vi sinh vật và giảm đau.",
+            uses: [
+                "Giải quyết nguyên nhân viêm nướu, nha chu do rối loạn vi sinh vật đường ruột (Dysbiosis).",
+                "Hiệu quả giảm đau răng rõ rệt chỉ sau 1–3 ngày sử dụng (tiêu chuẩn hấp thu từ 3 gói).",
+                "Có thể cải thiện nguyên nhân gây viêm và tái tạo răng miệng mà không cần cấy ghép.",
+                "Tác dụng điều chỉnh hormone và tăng tổng hợp collagen ở răng.",
+                "Sử dụng nguyên liệu tự nhiên như Propolis, Zea Mays L. giúp khác biệt với thuốc men truyền thống."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "각시사랑愛",
+            image: "images/img_11.png",
+            specification: "Mỗi chai 10ml 15 gói — 220,000 KRW",
+            description: "Sản phẩm hỗ trợ điều hòa nội tiết tố tự nhiên, giúp làm giảm các triệu chứng mãn kinh nhờ công nghệ chuyển hóa vi sinh vật.",
+            uses: [
+                "Giảm các triệu chứng mãn kinh nhanh chóng bằng cách loại bỏ chất thải ra khỏi cơ thể.",
+                "Uống buổi sáng giúp điều chỉnh hormone nhờ các chất estrogen từ thực vật.",
+                "Uống buổi tối giúp thúc đẩy quá trình trao đổi chất và đào thải độc tố.",
+                "Tăng khả năng hấp thu bằng quy trình lên men nhiều giai đoạn.",
+                "Không chứa chất phụ gia hóa học, an toàn với người rối loạn nội tiết.",
+                "Giải pháp cân bằng vi sinh vật đường ruột để điều chỉnh hormone một cách tự nhiên."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "D.PL Care 365",
+            image: "images/img_8.png",
+            specification: "20ml x 30ea — 450,000 KRW",
+            description: "Sản phẩm được chứng nhận bởi Bộ Thực phẩm và Dược phẩm Hàn Quốc, nhập khẩu trực tiếp từ New Zealand, hỗ trợ cải thiện sức khỏe tổng thể và tăng sức đề kháng.",
+            uses: [
+                "Viện vi sinh vật trung ương đầu tiên được chứng nhận, dùng chiết xuất nhung hươu nhập khẩu.",
+                "Giúp ngăn ngừa và cải thiện tình trạng mệt mỏi, suy giảm thể lực, rối loạn chuyển hóa.",
+                "Có thành phần từ thuốc chống ung thư mục tiêu, hỗ trợ ức chế phát triển tế bào ung thư.",
+                "Ứng dụng công nghệ lên men ‘Bioactive’ giúp cân bằng sinh lý cho người lớn tuổi.",
+                "Giải pháp tối ưu song song với thuốc, phù hợp người cao huyết áp, tiểu đường, bệnh tim mạch."
+            ], results: [
+                "images/result1.jpg",
+                "images/result2.jpg",
+                "images/result3.jpg",
+                "images/result4.jpg"
+            ]
+        },{
+            name: "Give Me Day Reducer Kit",
+            image: "images/img_10.png",
+            specification: "A 2ea, B 1ea, C 1ea, D 14ea — 600,000 KRW",
+            description: "Bộ sản phẩm giải quyết các vấn đề về da, cân bằng hormone, viêm nhiễm, thải độc cơ thể và cải thiện hệ miễn dịch.",
+            uses: [
+                "Cải thiện tàn nhang, nám, sắc tố da chỉ trong thời gian ngắn.",
+                "Thải độc gan và hệ tuần hoàn trước tiên, sau đó tối ưu hóa hấp thu dưỡng chất.",
+                "Cung cấp dưỡng chất như glutathion, collagen, systemin, elastin giúp phục hồi da khỏe mạnh.",
+                "Giải quyết các vấn đề về viêm, rối loạn hormone, miễn dịch, tuần hoàn máu.",
+                "Áp dụng công nghệ chuyển hóa vi sinh vật tiên tiến từ Purunjus và Nonijus."
+            ],results: [
+                "images/img_10.png",
+                "images/img_11.png",
+                "images/img_12.png",
+                "images/img_13.png"
+            ]
         }
+
     ];
 
     function createProductCard(product) {
@@ -173,15 +398,13 @@
         card.onclick = () => openModal(product);
         return card;
     }
-
     function openModal(product) {
         document.getElementById('modalImage').src = product.image;
         document.getElementById('modalTitle').textContent = product.name;
         document.getElementById('modalDesc').textContent = product.description;
         document.getElementById('modalPrice').textContent = product.specification;
 
-
-
+        // Hiển thị công dụng
         const usesList = document.getElementById('modalUses');
         usesList.innerHTML = "";
         product.uses.forEach(use => {
@@ -190,11 +413,29 @@
             usesList.appendChild(li);
         });
 
+
+        const resultsContainer = document.getElementById('modalResults');
+        resultsContainer.innerHTML = "";
+        if (product.results && Array.isArray(product.results)) {
+            product.results.forEach((src, index) => {
+                const img = document.createElement("img");
+                img.src = src;
+                img.alt = `Kết quả ${index + 1}`;
+                img.style.width = "80px";
+                img.style.height = "80px";
+                img.style.objectFit = "cover";
+                img.style.borderRadius = "4px";
+                img.loading = "lazy";
+                resultsContainer.appendChild(img);
+            });
+        }
+
         document.getElementById('productModal').classList.add('show');
     }
 
+
     function closeModal() {
-        document.getElementById('productModal').classList.remove('show');
+        document.getElementById("productModal").classList.remove("show");
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -241,5 +482,15 @@
         }
     }
 </script>
+<div id="contactButtonsContainer"></div>
+
+<script>
+    fetch("icon.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("contactButtonsContainer").innerHTML = data;
+        });
+</script>
+
 </body>
 </html>

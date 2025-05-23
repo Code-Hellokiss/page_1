@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Liên hệ nhanh</title>
+    <style>
+        .contact-floating-buttons {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .circle-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .circle-btn img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .circle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Màu sắc riêng */
+        .circle-btn.messenger {
+            background: #e0d7ff;
+            border: 2px solid #8b5cf6;
+        }
+
+        .circle-btn.zalo {
+            background: #e0f2ff;
+            border: 2px solid #38bdf8;
+        }
+
+        .circle-btn.phone {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Nút liên hệ nổi -->
+<div class="contact-floating-buttons">
+    <a href="https://m.me/yourpage" target="_blank" class="circle-btn messenger" title="Messenger">
+        <img src="images/img_2.png" alt="Messenger">
+    </a>
+    <a href="https://zalo.me/yourzalo" target="_blank" class="circle-btn zalo" title="Zalo">
+        <img src="images/img.png" alt="Zalo">
+    </a>
+    <a href="tel:0123456789" class="circle-btn phone" title="Gọi điện">
+        <img src="images/img_3.png" alt="Call">
+    </a>
+</div>
+
+</body>
+</html>

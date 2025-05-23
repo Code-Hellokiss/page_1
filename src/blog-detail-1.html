@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lợi ích của việc dùng thảo dược tự nhiên</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Tổng thể body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            margin: 0;
+        }
+
+        /* Nội dung chính */
+        main {
+            max-width: 800px;
+            margin: auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #14532d;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header sẽ được nhúng vào đây -->
+<div id="header" role="banner" aria-label="Phần đầu trang"></div>
+
+<main>
+    <h1>Lợi ích của việc dùng thảo dược tự nhiên</h1>
+    <img src="images/img_8.png" alt="Lợi ích thảo dược">
+    <p>Thảo dược tự nhiên từ lâu đã được ứng dụng trong các nền y học cổ truyền như Đông y, Ayurveda, Unani... để điều trị và hỗ trợ sức khỏe con người. Trong thời đại hiện nay, khi người tiêu dùng ngày càng quan tâm đến nguồn gốc và tính an toàn của các sản phẩm họ sử dụng, thảo dược tự nhiên ngày càng được ưa chuộng.</p>
+
+    <p>Ưu điểm nổi bật của thảo dược bao gồm:</p>
+    <ul>
+        <li>Ít tác dụng phụ nếu được dùng đúng cách và liều lượng.</li>
+        <li>Hỗ trợ quá trình điều trị các bệnh mạn tính hoặc tình trạng kéo dài.</li>
+        <li>Giúp tăng cường sức đề kháng và cải thiện thể trạng chung.</li>
+        <li>Có thể kết hợp với lối sống lành mạnh để nâng cao hiệu quả.</li>
+    </ul>
+
+    <p>Các sản phẩm hiện đại từ thảo dược thường trải qua quy trình nghiên cứu, chiết xuất và tiêu chuẩn hóa, giúp đảm bảo tính ổn định, hiệu quả và an toàn khi sử dụng.</p>
+</main>
+
+<!-- Script nhúng header -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("../header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById("header").innerHTML = html;
+            });
+    });
+</script>
+<div id="contactButtonsContainer"></div>
+
+<script>
+    fetch("icon.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("contactButtonsContainer").innerHTML = data;
+        });
+</script>
+
+</body>
+</html>

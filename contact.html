@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liên hệ - The Cocoon Vietnam</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Tổng thể bố cục */
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      color: #1f2937;
+    }
+
+    /* Section Liên hệ */
+    .contact {
+      max-width: 720px;
+      margin: 4rem auto;
+      padding: 0 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact h1 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      color: #14532d;
+      text-align: center;
+    }
+
+    /* Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75rem 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: #14532d;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(20, 83, 45, 0.2);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+    }
+
+    /* Nút gửi */
+    .contact-form .btn {
+      background-color: #14532d;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      align-self: flex-start;
+      transition: background-color 0.25s ease;
+    }
+
+    .contact-form .btn:hover {
+      background-color: #0e3b23;
+    }
+
+    /* Footer */
+    footer.footer {
+      background-color: #e5e7eb;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.95rem;
+      color: #4b5563;
+      margin-top: 4rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .contact {
+        margin: 2rem 1rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Header sẽ được tải động -->
+<div id="header-placeholder"></div>
+
+<!-- Nội dung chính -->
+<section class="contact">
+  <h1>Liên hệ với chúng tôi</h1>
+  <form class="contact-form" action="https://formsubmit.co/youremail@example.com" method="POST">
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_next" value="thank-you.html" />
+
+    <label for="name">Họ và tên</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="message">Nội dung</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <button type="submit" class="btn">Gửi</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2025 The Cocoon Vietnam. Bảo lưu mọi quyền.</p>
+</footer>
+
+<!-- Vùng nút liên hệ nổi -->
+<div id="contactButtonsContainer"></div>
+
+<!-- Load header.html -->
+<script>
+  fetch("header.html")
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById("header-placeholder").innerHTML = data;
+          });
+</script>
+
+<!-- Load icon.html (nút liên hệ nổi) -->
+<script>
+  fetch("icon.html")
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById("contactButtonsContainer").innerHTML = data;
+          });
+</script>
+
+</body>
+</html>
