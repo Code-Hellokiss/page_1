@@ -5,148 +5,279 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sản phẩm - The Cocoon Vietnam</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f9fafb;
+        * {
             margin: 0;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0f0f0f !important;
+            color: #fef9c3 !important;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        header {
+            background-color: #0f0f0f;
+            padding: 1.5rem 0;
+            text-align: center;
+            border-bottom: 1px solid #facc15;
+        }
+        header h1 {
+            color: #facc15;
+            font-size: 2.2rem;
+        }
+        .products {
+            padding: 60px 5vw;
+            text-align: center;
         }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 24px;
-            padding: 40px 5vw;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
         }
         .product-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
+            background-color: #1a1a1a;
+            border: 2px solid #facc15;
+            border-radius: 16px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #fef9c3;
         }
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(250, 204, 21, 0.2);
         }
         .product-card img {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
+            max-width: 140px;
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
         }
         .product-card h3 {
-            font-size: 1.1rem;
-            margin: 12px;
-            color: #166534;
+            color: #facc15;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
         .product-card p {
-            margin: 0 12px 12px;
-            font-size: 0.95rem;
-            color: #555;
+            color: #fef9c3;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
         }
         .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.85);
             display: none;
             justify-content: center;
             align-items: center;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.6);
             z-index: 9999;
-            padding: 20px;
         }
         .modal.show {
             display: flex;
         }
         .modal-content {
-            display: flex;
-            flex-direction: column;
-            background: #10441f;
-            color: #ffffff;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 95vh;
-            overflow-y: auto;
+            background: #0f0f0f;
+            color: #fef9c3;
+            border: 2px solid #facc15;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 960px;
+            width: 95%;
+            position: relative;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.2);
         }
         .modal-layout {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
-            align-items: center;
+            gap: 2rem;
         }
-        .left {
-            flex: 1 1 250px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
+        .modal-content h3 {
+            color: #facc15;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
         }
-        @media(min-width: 768px) {
-            .modal-layout {
-                flex-direction: row;
-            }
+        .modal-content h4 {
+            color: #facc15;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
         }
-        .left img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-        }
-        .modal-layout h3, .modal-layout h4 {
-            font-size: 1.5rem;
-            color: #aef5ae;
-            margin-bottom: 10px;
-        }
-        .modal-layout ul {
-            padding-left: 20px;
+        .modal-content ul {
             list-style: disc;
+            padding-left: 1.5rem;
         }
-        .modal-layout p, .modal-layout li {
-            color: #e0f0e0;
+        .modal-content img {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+            max-width: 100%;
         }
-        #modalPrice {
-            color: #a2eaa2;
-            font-weight: bold;
-        }
-        .results-images {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 10px 0;
+        .modal-content .close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: 2px solid #facc15;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 1.4rem;
+            color: #facc15;
+            cursor: pointer;
         }
         .results-images img {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
             border-radius: 8px;
-            background: #fff;
-            cursor: pointer;
-            flex-shrink: 0;
+            border: 1px solid #facc15;
+            margin-right: 8px;
         }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            background: #2e7031;
-            border: 2px solid white;
-            color: white;
-            border-radius: 8px;
-            padding: 2px 8px;
-            cursor: pointer;
+        .modal-price {
+            font-size: 1.1rem;
+            color: #38f09d;
+            font-weight: bold;
         }
-        h1 {
+        footer.footer {
+            background-color: #1a1a1a;
+            padding: 2rem 1rem;
             text-align: center;
-            color: #166534;
-            margin-top: 30px;
+            color: #facc15;
+            font-size: 1rem;
+            border-top: 1px solid #facc15;
+            margin-top: 60px;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .product-card {
+                padding: 20px 12px;
+            }
+            .modal-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm - The Cocoon Vietnam</title>
+    <style>
+        html, body {
+            background-color: #0f0f0f !important;
+            color: #fef9c3 !important;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+
+        a {
+            color: #facc15;
+            text-decoration: none;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #facc15;
+        }
+
+        .products {
+            background-color: #0f0f0f;
+            padding: 60px 5vw;
+            text-align: center;
+        }
+
+        .products p.subtitle {
+            color: #fef9c3;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background-color: #1a1a1a !important;
+            border: 2px solid #facc15 !important;
+            border-radius: 16px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #fef9c3 !important;
+        }
+
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(255, 255, 255, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            max-width: 140px;
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+
+        .product-card h3 {
+            color: #facc15 !important;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card p {
+            color: #fef9c3 !important;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+
+        .btn {
+            background-color: #facc15;
+            color: #0f0f0f;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #ffe97f;
+            transform: scale(1.05);
+        }
+
+        .featured-btn {
+            margin-top: 3rem;
+            text-align: center;
         }
     </style>
 
 </head>
 <body>
 <div id="header-placeholder"></div>
-<h1 style="text-align:center; color:#2b6a4d; margin-top: 20px; font-size: 2rem;">Sản phẩm của The Cocoon</h1>
+<h1 style="text-align:center; color:#facc15; margin-top: 20px; font-size: 2.5rem;">Sản phẩm của The Cocoon</h1>
 <div class="product-grid" id="productGrid"></div>
 
 <div class="modal" id="productModal">
@@ -154,34 +285,34 @@
         <button class="close" aria-label="Đóng" onclick="closeModal()">&times;</button>
         <div class="modal-layout">
             <div class="left" style="flex: 1 1 250px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                <img id="modalImage" src="" alt="Hình ảnh sản phẩm">
-                <div>
-                    <p><strong>Thương hiệu:</strong> Micros</p>
-                    <p><strong>Xuất xứ:</strong> Hàn Quốc</p>
-                    <p style="color: #a2eaa2;"><strong>Giá Thành:</strong> <span id="modalPrice"></span></p>
+                <img id="modalImage" src="" alt="Hình ảnh sản phẩm" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);">
+                <div style="font-size: 0.95rem; text-align: center; color: #fef9c3;">
+                    <p><strong style="color:#facc15">Thương hiệu:</strong> Micros</p>
+                    <p><strong style="color:#facc15">Xuất xứ:</strong> Hàn Quốc</p>
+                    <p class="modal-price" style="color: #38f09d;"><strong>Giá Thành:</strong> <span id="modalPrice"></span></p>
                 </div>
             </div>
-            <div class="right" style="flex: 2 1 400px;">
-                <h3 id="modalTitle"></h3>
+            <div class="right" style="flex: 2 1 400px; color: #fef9c3;">
+                <h3 id="modalTitle" style="color:#facc15; font-size: 1.75rem;">Tên sản phẩm</h3>
                 <p id="modalDesc"></p>
-                <h4>Đặc trưng:</h4>
-                <ul id="modalUses"></ul>
+                <h4 style="color:#facc15; margin-top: 1rem;">Đặc trưng:</h4>
+                <ul id="modalUses" style="padding-left: 1.2rem;"></ul>
 
-                <h4>Kết quả:</h4>
-                <div id="modalResults" class="results-images" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5rem;" onclick="openImageViewer(event)">
-
-                </div>
+                <h4 style="color:#facc15; margin-top: 1rem;">Kết quả:</h4>
+                <div id="modalResults" class="results-images" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5rem;" onclick="openImageViewer(event)"></div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <script>
     const products = [
         {
             name: "Catch-Cholesterol",
             image: "images/img_8.png",
-            specification: "A(200ml x 4ea), B(200ml x 2ea)",
+            specification: "60,000 KRW",
             description: "Sản phẩm giúp loại bỏ cholesterol, sỏi mật, mỡ và phân có trong hệ tuần hoàn, ruột và gan và giúp các vi khuẩn có lợi sinh sôi nảy nở.",
             uses: [
                 "Một chương trình detox giúp làm sạch hệ tuần hoàn trong cơ thể chỉ bằng một ngày.",
@@ -199,7 +330,7 @@
         },{
             name: "Ato-Cell",
             image: "images/img_9.png",
-            specification: "500ml x 1ea / 500ml x 3ea — 70,000 KRW / 199,000 KRW",
+            specification: "70,000 KRW / 199,000 KRW",
             description: "Bán cho những người bị dị ứng và bệnh về da. " +
                 "Hiệu quả trong 1–2 tuần với vấn đề đường ruột, miễn dịch.",
             uses: [
@@ -238,7 +369,7 @@
         },{
             name: "Original Postbiotics",
             image: "images/img_11.png", // Cập nhật với đúng tên file ảnh
-            specification: "3g x 30ea — 65,000 KRW",
+            specification: " 65,000 KRW",
             description: "Sản phẩm chứa 50 tỷ vi khuẩn sinh sản, tăng cường chức năng ruột và sức khỏe đường ruột.",
             uses: [
                 "50 tỷ vi khuẩn sinh sản đã được đầu tư. Hơn 10 tỷ con được đảm bảo, gấp 100 lần tiêu chuẩn của Bộ Thực phẩm và Dược phẩm Hàn Quốc.",
