@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Cocoon Vietnam</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
+    <style>
+        html, body {
+            background-color: #0f0f0f;
+            color: #facc15;
+        }
+
+        a {
+            color: #facc15;
+        }
+        section, .intro-section {
+            color: #1f2937;
+        }
+    </style>
 </head>
 <body>
 
 
 <div id="header" role="banner" aria-label="Phần đầu trang"></div>
-<!-- TÁCH RA NGOÀI .container -->
+
 <div class="intro-section">
     <div class="intro-overlay">
         <h1 class="intro-title">Chào mừng đến với <span>Trang Web</span></h1>
@@ -21,61 +33,25 @@
 </div>
 <div class="container">
 </div>
-
-
-<section id="about" aria-labelledby="about-title" style="
-  background: #f9fafb;
-  border-radius: 12px;
-  padding: 2.5rem 1.5rem;
-  max-width: 1100px;
-  margin: 3rem auto;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  color: #1f2937;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-">
-    <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;">
-        <div style="flex: 1 1 500px; min-width: 280px;">
-            <h2 id="about-title" style="font-size: 2rem; color: #14532d; margin-bottom: 1rem;">
-                Viện nghiên cứu Vi sinh vật JUNG-ANG
-            </h2>
-            <p style="font-size: 1rem; line-height: 1.6;">
+<section id="about" class="dark-section">
+    <div class="about-content">
+        <div class="about-text">
+            <h2 id="about-title">Viện nghiên cứu Vi sinh vật JUNG-ANG</h2>
+            <p>
                 Viện JUNG-ANG (Hàn Quốc), thành lập năm 1981, là đơn vị tiên phong trong nghiên cứu và ứng dụng công nghệ vi sinh vào thực phẩm chức năng và chăm sóc sức khỏe.
             </p>
-            <p style="font-size: 1rem; line-height: 1.6;">
+            <p>
                 Với hơn 40 năm kinh nghiệm, viện sở hữu công nghệ nuôi cấy và chuyển hóa vi sinh vật hiện đại, tạo ra các hoạt chất có lợi như GABA, vitamin B/K, axit lactic,...
             </p>
         </div>
 
-        <!-- Image -->
-        <div style="flex: 1 1 380px; min-width: 260px; display: flex; justify-content: center;">
-            <img src="images/img_7.png" alt="Trụ sở Viện JUNG-ANG" style="
-        width: 100%;
-        max-width: 360px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      " loading="lazy">
+        <div class="about-image">
+            <img src="images/img_7.png" alt="Trụ sở Viện JUNG-ANG" loading="lazy">
         </div>
     </div>
-    <div style="
-    margin-top: 2rem;
-    text-align: center;
-  ">
-        <a href="about.html" style="
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      border: 2px solid #14532d;
-      background-color: transparent;
-      color: #14532d;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    " onmouseover="this.style.backgroundColor='#14532d'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#14532d';">
-            tìm hiểu thêm
-            <span style="font-size: 1.2rem;">→</span>
-        </a>
+
+    <div class="about-button">
+        <a href="about.html" class="btn">tìm hiểu thêm <span>→</span></a>
     </div>
 </section>
 
@@ -85,62 +61,59 @@
     <div class="product-grid" id="productGrid" role="list">
 
     </div>
-    <div style="text-align:center; margin-top: 30px;">
+    <div class="featured-btn">
         <a href="product.html" class="btn" aria-label="Xem thêm sản phẩm">Xem thêm sản phẩm</a>
     </div>
 </section>
+<section class="blogs-contact-section">
+    <div class="container">
+        <h2 class="section-title">Tin tức & Kiến thức</h2>
 
-<section class="blogs-contact-section" style="background-color: #f8fafc; padding: 3rem 1rem;">
-    <div class="container" style="display: flex; flex-wrap: wrap; gap: 2rem; max-width: 1200px; margin: auto;">
+        <div class="blog-grid">
+            <div class="blog-card">
+                <img src="images/yogurt.jpg" alt="Lợi ích probiotic" />
+                <h3>Lợi ích của Probiotic với đường ruột</h3>
+                <p>Khám phá tác động tích cực của Probiotic đến hệ tiêu hoá và miễn dịch của bạn.</p>
+                <a href="#" class="btn-read">Đọc thêm</a>
+            </div>
 
-        <!-- Cột Tin tức -->
-        <div class="blog-column" style="flex: 1 1 60%;">
-            <h2 style="font-size: 1.8rem; color: #581c1c; border-bottom: 2px solid #ddd; padding-bottom: 0.5rem;">TIN TỨC - BÍ QUYẾT LÀM ĐẸP</h2>
-            <div id="blogList">
-                <!-- Các bài viết sẽ được render tại đây bằng JavaScript -->
+            <div class="blog-card">
+                <img src="images/salmon.jpg" alt="Giảm cholesterol" />
+                <h3>Thực đơn hỗ trợ giảm cholesterol</h3>
+                <p>Gợi ý thực đơn phù hợp giúp kiểm soát lượng mỡ máu và tăng cường sức khoẻ.</p>
+                <a href="#" class="btn-read">Đọc thêm</a>
             </div>
         </div>
 
-        <!-- Cột Liên hệ -->
-        <div class="contact-column" style="flex: 1 1 35%; background: #fff3cd; padding: 1.5rem; border-radius: 10px; border: 1px solid #ffeeba;">
-            <h3 style="font-size: 1.3rem; color: #7c4700; margin-bottom: 1rem;">LIÊN HỆ TƯ VẤN MUA HÀNG</h3>
-            <form action="https://formsubmit.co/6f03bdae331e31b0f8f130d3860a62fd" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="thank-you.html">
-
-                <input type="text" name="name" placeholder="Họ tên của bạn.." required style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;" />
-                <input type="text" name="phone" placeholder="Số điện thoại..." required style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;" />
-                <textarea name="message" placeholder="Nội dung cần tư vấn..." rows="4" required style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;"></textarea>
-
-                <button type="submit" style="background-color: #ffc107; color: #fff; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Gửi liên hệ</button>
+        <div class="contact-form">
+            <h3>Liên hệ tư vấn miễn phí</h3>
+            <form action="#" method="POST">
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Họ tên" required />
+                    <input type="text" name="phone" placeholder="Số điện thoại" required />
+                </div>
+                <textarea name="message" placeholder="Bạn cần tư vấn về vấn đề gì?" rows="3" required></textarea>
+                <button type="submit">Gửi thông tin</button>
             </form>
         </div>
     </div>
 </section>
 
-<section id="training" aria-labelledby="training-heading" style="background-color: #f9fafb; padding: 3rem 1rem; margin-top: 3rem; border-top: 1px solid #e2e8f0;">
-    <div class="container" style="max-width: 1100px; margin: auto;">
-        <h2 id="training-heading" style="font-size: 2rem; color: #14532d; margin-bottom: 2rem; text-align: center;">Đào tạo & Chuyển giao nghề</h2>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;">
-            <!-- Image -->
-            <div style="flex: 1 1 400px; min-width: 280px; text-align: center;">
-                <img src="images/training.jpg" alt="Hình ảnh đào tạo nghề" style="width: 100%; max-width: 500px; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" loading="lazy" />
+<section class="training-section">
+    <div class="container">
+        <h2 class="section-title">Đào tạo & Chuyển giao nghề</h2>
+        <div class="training-grid">
+            <div class="training-image">
+                <img src="images/img_9.png" alt="Đào tạo nghề">
             </div>
-
-            <!-- Content -->
-            <div style="flex: 1 1 500px; min-width: 280px;">
-                <p style="font-size: 1rem; line-height: 1.7; color: #1f2937;">
-                    Chương trình đào tạo & chuyển giao nghề của chúng tôi được thiết kế nhằm cung cấp kiến thức thực tiễn, kỹ năng chuyên môn và công nghệ tiên tiến nhất trong lĩnh vực thực phẩm chức năng, mỹ phẩm và chăm sóc sức khỏe từ thảo dược.
+            <div class="training-content">
+                <p>
+                    Chương trình đào tạo & chuyển giao nghề của chúng tôi giúp bạn nắm vững kiến thức thực tiễn, kỹ năng sản xuất và công nghệ trong lĩnh vực sức khỏe – mỹ phẩm – thực phẩm chức năng.
                 </p>
-                <p style="font-size: 1rem; line-height: 1.7; color: #1f2937;">
-                    Đối tượng tham gia bao gồm các tổ chức, cá nhân, doanh nghiệp khởi nghiệp có mong muốn tiếp cận quy trình sản xuất, nghiên cứu hoặc kinh doanh sản phẩm có nguồn gốc từ thiên nhiên.
+                <p>
+                    Dành cho cá nhân hoặc doanh nghiệp có nhu cầu học hỏi và khởi nghiệp từ các dòng sản phẩm có nguồn gốc tự nhiên.
                 </p>
-
-                <div style="margin-top: 1.5rem;">
-                    <a href="training.html" class="btn" style="background-color: #14532d; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; display: inline-block;">Xem chi tiết chương trình</a>
-                </div>
+                <a href="training.html" class="btn-training">Tìm hiểu thêm</a>
             </div>
         </div>
     </div>
@@ -149,47 +122,52 @@
 
 
 
-
-
-<footer class="footer" id="contact" role="contentinfo">
-    © 2025 The Cocoon Vietnam. All rights reserved.
-</footer>
+<div id="footer" role="banner" aria-label="Phần cuối trang"></div>
 <div class="modal" id="productModal">
-    <div class="modal-content" role="document" style="background-color: #1f4428; border-radius: 12px; padding: 20px; color: white; max-width: 900px; margin: auto; box-sizing: border-box; position: relative;">
+    <div class="modal-content" role="document"
+         style="background-color: #14532d;
+            border-radius: 16px;
+            padding: 24px;
+            color: #fef9c3;
+            max-width: 900px;
+            margin: auto;
+            box-sizing: border-box;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 2px solid #facc15;"> <!-- 🔥 Đây là dòng quan trọng -->
 
-        <!-- Nút đóng -->
         <button class="close" aria-label="Đóng" onclick="closeModal()"
-                style="position: absolute; top: 20px; right: 20px; font-size: 1.5rem; background: none; border: 2px solid white; border-radius: 8px; color: white; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">×</button>
+                style="position: absolute; top: 20px; right: 20px; font-size: 1.2rem; background: transparent; border: none; color: #fef9c3; cursor: pointer;">×</button>
 
         <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-top: 20px;">
 
-            <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
+            <!-- Hình ảnh và thông tin cơ bản -->
+            <div style="flex: 1 1 280px; display: flex; flex-direction: column; align-items: center;">
                 <img id="modalImage" src="" alt="Ảnh sản phẩm"
-                     style="width: 100%; max-width: 300px; border-radius: 12px; object-fit: cover; height: 300px;" />
+                     style="width: 100%; max-width: 280px; border-radius: 12px; object-fit: cover; height: 280px; box-shadow: 0 6px 16px rgba(0,0,0,0.3);" />
 
                 <div style="margin-top: 20px; width: 100%; padding-left: 10px;">
-                    <p style="margin: 0.2rem 0;"><strong>Thương hiệu:</strong> <span id="modalBrand"></span></p>
-                    <p style="margin: 0.2rem 0;"><strong>Xuất xứ:</strong> <span id="modalOrigin"></span></p>
-                    <p style="margin: 0.2rem 0; color: #a2eaa2;"><strong>Giá Thành:</strong> <span id="modalSpecification"></span></p>
+                    <p style="margin: 0.3rem 0;"><strong>Thương hiệu:</strong> <span id="modalBrand"></span></p>
+                    <p style="margin: 0.3rem 0;"><strong>Xuất xứ:</strong> <span id="modalOrigin"></span></p>
+                    <p style="margin: 0.3rem 0; color: #bef264; font-weight: bold;"><strong>Giá Thành:</strong> <span id="modalSpecification"></span></p>
                 </div>
             </div>
-
-
             <div style="flex: 2 1 400px;">
-                <h3 id="modalTitle" style="font-size: 1.5rem; margin-bottom: 1rem; font-weight: bold;"></h3>
+                <h3 id="modalTitle" style="font-size: 1.75rem; margin-bottom: 1rem; font-weight: 700; color: #facc15;"></h3>
                 <p id="modalDescription" style="line-height: 1.6; margin-bottom: 1.2rem;"></p>
 
-                <h4 style="margin-bottom: 0.5rem;">Đặc trưng:</h4>
-                <ul id="modalUses" style="padding-left: 20px; margin-bottom: 1.5rem; line-height: 1.6;"></ul>
+                <h4 style="margin-bottom: 0.5rem; color: #facc15;">Đặc trưng:</h4>
+                <ul id="modalUses" style="padding-left: 1.2rem; margin-bottom: 1.5rem; line-height: 1.6; list-style: disc;"></ul>
 
-                <h4>Kết quả:</h4>
-                <div id="modalResults" class="results-images" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5rem;" onclick="openImageViewer(event)">
-
+                <h4 style="color: #facc15;">Kết quả:</h4>
+                <div id="modalResults" class="results-images"
+                     style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.5rem;" onclick="openImageViewer(event)">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
@@ -340,13 +318,16 @@
             const card = document.createElement("div");
             card.className = "blog-card";
             card.innerHTML = `
-                <img src="${blog.image}" alt="${blog.title}" />
-                <h3>${blog.title}</h3>
-                <p>${blog.summary}</p>
-                <a href="${blog.link}" class="btn">Xem chi tiết</a>
-            `;
+        <img src="${blog.image}" alt="${blog.title}" />
+        <div class="blog-card-content">
+            <h3>${blog.title}</h3>
+            <p>${blog.summary}</p>
+            <a href="${blog.link}" class="btn">Xem chi tiết</a>
+        </div>
+    `;
             blogListContainer.appendChild(card);
         });
+
 
         const modal = document.getElementById("productModal");
         const modalImage = document.getElementById("modalImage");

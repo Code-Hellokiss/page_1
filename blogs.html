@@ -1,120 +1,128 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>The Cocoon - Blogs</title>
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>The Cocoon - Blogs</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', sans-serif;
+                background-color: #f9fafb;
+                color: #1f2937;
+            }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f9fafb;
-            color: #1f2937;
-        }
+            main {
+                max-width: 1000px;
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
 
-        main {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
+            h2 {
+                font-size: 2rem;
+                text-align: center;
+                margin-bottom: 1.5rem;
+                color: #14532d;
+            }
 
-        h2 {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: #14532d;
-        }
+            .blog-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
 
-        .blog-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+            .blog-card {
+                background: #fff;
+                border-radius: 8px;
+                padding: 1rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                display: flex;
+                flex-direction: column;
+            }
 
-        .blog-card {
-            background: #fff;
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-        }
+            .blog-card img {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+                border-radius: 6px;
+                margin-bottom: 1rem;
+            }
 
-        .blog-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-        }
+            .blog-card h3 {
+                margin-bottom: 0.5rem;
+                font-size: 1.2rem;
+                color: #2f855a;
+            }
 
-        .blog-card h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-            color: #2f855a;
-        }
+            .blog-card p {
+                flex: 1;
+                font-size: 0.95rem;
+                color: #4a5568;
+            }
 
-        .blog-card p {
-            flex: 1;
-            font-size: 0.95rem;
-            color: #4a5568;
-        }
+            .blog-card a {
+                margin-top: 1rem;
+                display: inline-block;
+                padding: 0.4rem 0.8rem;
+                background: #2f855a;
+                color: white;
+                border-radius: 4px;
+                text-align: center;
+                text-decoration: none;
+            }
 
-        .blog-card a {
-            margin-top: 1rem;
-            display: inline-block;
-            padding: 0.4rem 0.8rem;
-            background: #2f855a;
-            color: white;
-            border-radius: 4px;
-            text-align: center;
-        }
+            .blog-card a:hover {
+                background: #276749;
+            }
 
-        .blog-card a:hover {
-            background: #276749;
-        }
+            .nav a.active {
+                font-weight: bold;
+                border-bottom: 2px solid #22c55e;
+                padding-bottom: 2px;
+            }
 
-        /* Active nav item */
-        .nav a.active {
-            font-weight: bold;
-            border-bottom: 2px solid #22c55e;
-            padding-bottom: 2px;
-        }
-    </style>
-</head>
-<body>
+            #footer {
+                margin-top: 3rem;
+            }
+        </style>
+    </head>
+    <body>
 
-<!-- HEADER PLACEHOLDER -->
-<div id="header" role="banner" aria-label="Phần đầu trang"></div>
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header" role="banner" aria-label="Phần đầu trang"></div>
 
-<main>
-    <h2>Blog mới nhất từ The Cocoon</h2>
-    <div class="blog-list">
-        <div class="blog-card">
-            <img src="images/blog1.jpg" alt="Bài viết 1" />
-            <h3>Lợi ích của việc dùng thảo dược tự nhiên</h3>
-            <p>Thảo dược thiên nhiên mang lại nhiều tác dụng tích cực cho sức khỏe và làn da. Hãy cùng khám phá!</p>
-            <a href="blog-detail-1.html">Xem chi tiết</a>
+    <main>
+        <h2>Blog mới nhất từ The Cocoon</h2>
+        <div class="blog-list">
+            <div class="blog-card">
+                <img src="images/blog1.jpg" alt="Bài viết 1" />
+                <h3>Lợi ích của việc dùng thảo dược tự nhiên</h3>
+                <p>Thảo dược thiên nhiên mang lại nhiều tác dụng tích cực cho sức khỏe và làn da. Hãy cùng khám phá!</p>
+                <a href="blog-detail-1.html">Xem chi tiết</a>
+            </div>
+
+            <div class="blog-card">
+                <img src="images/blog2.jpg" alt="Bài viết 2" />
+                <h3>Chăm sóc cơ thể từ bên trong</h3>
+                <p>Sử dụng thực phẩm chức năng đúng cách giúp bạn khỏe từ gốc và giữ vẻ ngoài rạng rỡ.</p>
+                <a href="blog-detail-2.html">Xem chi tiết</a>
+            </div>
         </div>
+    </main>
 
-        <div class="blog-card">
-            <img src="images/blog2.jpg" alt="Bài viết 2" />
-            <h3>Chăm sóc cơ thể từ bên trong</h3>
-            <p>Sử dụng thực phẩm chức năng đúng cách giúp bạn khỏe từ gốc và giữ vẻ ngoài rạng rỡ.</p>
-            <a href="blog-detail-2.html">Xem chi tiết</a>
-        </div>
-    </div>
-</main>
+    <!-- ICON CONTACT FLOAT -->
+    <div id="contactButtonsContainer"></div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
+    <!-- FOOTER -->
+    <div id="footer" role="contentinfo" aria-label="Chân trang"></div>
+
+    <script>
+        // Load header
         fetch("header.html")
             .then(response => response.text())
             .then(data => {
                 document.getElementById("header").innerHTML = data;
 
-                // Highlight menu tab
                 const currentPath = window.location.pathname.split("/").pop();
                 document.querySelectorAll(".nav a").forEach(link => {
                     const href = link.getAttribute("href");
@@ -127,18 +135,24 @@
                     }
                 });
             })
-            .catch(error => console.error("Không thể tải header:", error));
-    });
-</script>
-<div id="contactButtonsContainer"></div>
+            .catch(err => console.error("Không thể tải header:", err));
 
-<script>
-    fetch("icon.html")
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById("contactButtonsContainer").innerHTML = data;
-        });
-</script>
+        // Load icon buttons
+        fetch("icon.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("contactButtonsContainer").innerHTML = data;
+            })
+            .catch(err => console.error("Không thể tải icon.html:", err));
 
-</body>
-</html>
+        // Load footer
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer").innerHTML = data;
+            })
+            .catch(err => console.error("Không thể tải footer:", err));
+    </script>
+
+    </body>
+    </html>
